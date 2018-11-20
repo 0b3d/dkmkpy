@@ -26,13 +26,22 @@ RUN shapeindex --shape_files \
 RUN mkdir /map_data
 VOLUME /map_data
 
+RUN mkdir /pyfiles
+VOLUME /pyfiles
+
+RUN mkdir /images
+VOLUME /images
+
 RUN mkdir /scripts
 COPY scripts/compile_style.sh /scripts
 COPY scripts/run_render.sh /scripts
+COPY scripts/configure.sh /scripts
 COPY entrypoint.sh /
 
 RUN chmod 755 /scripts/*.sh && \
     chmod 755 /entrypoint.sh
+
+
 
 WORKDIR /
 ENTRYPOINT /entrypoint.sh

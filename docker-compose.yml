@@ -11,6 +11,8 @@ services:
     volumes:
       - ./renderer/map_data:/map_data
       - ./renderer/scripts:/scripts
+      - ./renderer/pyfiles:/pyfiles
+      - ./renderer/images:/images
     volumes_from:
       - postgis:ro
     ports:
