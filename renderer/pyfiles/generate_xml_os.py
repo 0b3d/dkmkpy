@@ -20,8 +20,9 @@ REASONABLE_DEFAULTS = {
         'estimate_extent':'false',   
         'extent':'-293594,6706279,-280218,6697259',
         'dbname' : 'gis',
-        'usr' : 'postgres',
-	'port' : '5432',   
+        'user' : 'postgres',
+	'port' : '5432',
+	'host' : 'localhost',
         }
 
 def color_text(color, text):
