@@ -1,4 +1,6 @@
-# Melbourne map
+# Bristol map
+#Just an ad-hoc copy from the original git
+#Credits to dooman87 https://github.com/dooman87/melbourne-map.git
 
 Provides a configuration to launch your own retina ready map renderer.
 
