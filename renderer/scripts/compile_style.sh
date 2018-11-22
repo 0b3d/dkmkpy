@@ -3,8 +3,8 @@
 # Compiling carto css style and generates OSM xml
 # that can be passed to mapnik.
 
-cp -f /map_data/mystyle.mml /openstreetmap-carto/
-carto /openstreetmap-carto/mystyle.mml > /map_data/stylesheet_.xml
+cp -f -r /map_data/mml/* /openstreetmap-carto
+carto /openstreetmap-carto/water.mml > /map_data/stylesheet_.xml
 
 DS='<Parameter name=\"dbname\"><![CDATA[gis]]><\/Parameter>\
     <Parameter name=\"host\"><![CDATA[postgis]]><\/Parameter>\
