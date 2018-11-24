@@ -6,7 +6,6 @@ except:
     import mapnik
 
 import sys, os
-
 # Set up projections
 # spherical mercator (most common target map projection of osm data imported with osm2pgsql)
 merc = mapnik.Projection('+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over')
@@ -20,32 +19,17 @@ longlat = mapnik.Projection('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
 if not hasattr(mapnik,'mapnik_version') and not mapnik.mapnik_version() >= 600:
     raise SystemExit('This script requires Mapnik >=0.6.0)')
 
-if __name__ == "__main__":
-    try:
-        mapfile = os.environ['MAPNIK_MAP_FILE']
-    except KeyError:
-        mapfile = "/map_data/bs_osm.xml"
-    
-    map_uri = "/images/image.png"
-
-    #---------------------------------------------------
-    #  Change this to the bounding box you want
-	# Lets start rendering an image centered in MVB -2.6033089,51.45581608
-    cpoint = [-2.603100,51.456073]
-    size = 0.001 
-    bounds = (cpoint[0]-size, cpoint[1]+size, cpoint[0]+size, cpoint[1]-size )
-    #---------------------------------------------------
-
+def renderimage(bounds, mapfile, name):
     z = 1
     imgx = 500 * z
     imgy = 500 * z
+    map_uri = "/images/" + name + ".png"
 
     m = mapnik.Map(imgx,imgy)
     mapnik.load_map(m,mapfile)
-    
     # ensure the target map projection is mercator
     m.srs = merc.params()
-
+	
     if hasattr(mapnik,'Box2d'):
         bbox = mapnik.Box2d(*bounds)
     else:
@@ -70,10 +54,7 @@ if __name__ == "__main__":
     # render the map to an image
     im = mapnik.Image(imgx,imgy)
     mapnik.render(m, im)
-    im.save(map_uri,'png')
-    
-    sys.stdout.write('output image to %s!\n' % map_uri)
-    
+    im.save(map_uri,'png')      
     # Note: instead of creating an image, rendering to it, and then 
     # saving, we can also do this in one step like:
     # mapnik.render_to_file(m, map_uri,'png')
@@ -83,5 +64,44 @@ if __name__ == "__main__":
     # For example, to render to pdf or svg do:
     # mapnik.render_to_file(m, "image.pdf")
     #mapnik.render_to_file(m, "image.svg")
+    sys.stdout.write('output images to %s!\n' % map_uri)
     
+if __name__ == "__main__":
+    try:
+        mapfile = os.environ['MAPNIK_MAP_FILE']
+    except KeyError:
+        mapfile = "/map_data/bs_osm.xml"
+    
+    shift = 0.0005
+    size = 0.001
+    #---------------------------------------------------
+    # Original Image and 4 shifted
+    cpoint = [-2.603100,51.456073]     
+    cpoint1 = [cpoint[0]+shift, cpoint[1]] #New center for x+ shifted image
+    cpoint2 = [cpoint[0]-shift, cpoint[1]] #New center for x+ shifted image
+    cpoint3 = [cpoint[0], cpoint[1] + shift] #New center for x+ shifted image
+    cpoint4 = [cpoint[0], cpoint[1] - shift] #New center for x+ shifted image
+    bounds0 = (cpoint[0]-size, cpoint[1]+size, cpoint[0]+size, cpoint[1]-size )
+    bounds1 = (cpoint1[0]-size, cpoint1[1]+size, cpoint1[0]+size, cpoint1[1]-size ) #Bounds for x= shifter image
+    bounds2 = (cpoint2[0]-size, cpoint2[1]+size, cpoint2[0]+size, cpoint2[1]-size ) #Bounds for x= shifter image
+    bounds3 = (cpoint3[0]-size, cpoint3[1]+size, cpoint3[0]+size, cpoint3[1]-size ) #Bounds for x= shifter image
+    bounds4 = (cpoint4[0]-size, cpoint4[1]+size, cpoint4[0]+size, cpoint4[1]-size ) #Bounds for x= shifter image
+
+    #---------------------------------------------------
+    renderimage(bounds0, mapfile, "0")
+    renderimage(bounds1, mapfile, "1")
+    renderimage(bounds2, mapfile, "2")
+    renderimage(bounds3, mapfile, "3")
+    renderimage(bounds4, mapfile, "4")
+    # To rotate the o rotate the map to any angle (including south up!!) and the text is rendered correctly! You don't have to change the projections of your input vectors. 
+    # Simply tweak the mapnik generate_image.py script like this:
+    merc = mapnik.Projection('+proj=tpeqd +lat_1=35 +lat_2=35 +lon_1=-80 +lon_2=-122 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs')
+    renderimage(bounds0, mapfile, "5")
+    renderimage(bounds1, mapfile, "6")
+    renderimage(bounds2, mapfile, "7")
+    renderimage(bounds3, mapfile, "8")
+    renderimage(bounds4, mapfile, "9")
+
+
+
 

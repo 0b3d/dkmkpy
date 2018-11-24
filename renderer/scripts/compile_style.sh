@@ -4,7 +4,7 @@
 # that can be passed to mapnik.
 
 cp -f -r /map_data/mml/* /openstreetmap-carto
-carto /openstreetmap-carto/water.mml > /map_data/stylesheet_.xml
+carto /openstreetmap-carto/project.mml > /map_data/stylesheet_.xml
 
 DS='<Parameter name=\"dbname\"><![CDATA[gis]]><\/Parameter>\
     <Parameter name=\"host\"><![CDATA[postgis]]><\/Parameter>\
