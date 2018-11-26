@@ -95,13 +95,16 @@ if __name__ == "__main__":
     renderimage(bounds4, mapfile, "4")
     # To rotate the o rotate the map to any angle (including south up!!) and the text is rendered correctly! You don't have to change the projections of your input vectors. 
     # Simply tweak the mapnik generate_image.py script like this:
-    merc = mapnik.Projection('+proj=tpeqd +lat_1=35 +lat_2=35 +lon_1=-80 +lon_2=-122 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs')
+    # merc = mapnik.Projection('+proj=tpeqd +lat_1=35 +lat_2=35 +lon_1=-80 +lon_2=-122 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs')
+    merc = mapnik.Projection('+proj=aeqd +ellps=sphere +lat_0=90 +lon_0=-45')
+    #crs=paste0("+proj=aeqd +ellps=sphere +lat_0=90 +lon_0=", -angle))
     renderimage(bounds0, mapfile, "5")
     renderimage(bounds1, mapfile, "6")
     renderimage(bounds2, mapfile, "7")
     renderimage(bounds3, mapfile, "8")
     renderimage(bounds4, mapfile, "9")
-
-
-
-
+    for i in range(1 , 5) :
+        teta = i * 45;
+        merc = mapnik.Projection('+proj=aeqd +ellps=WGS84 +lat_0=90 +lon_0='+str(teta))
+        renderimage(bounds0, mapfile,str(9+i))
+		
