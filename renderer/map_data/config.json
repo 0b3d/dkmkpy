@@ -69,7 +69,7 @@
 	},
 	"RenderPools": [
 		{
-			"Cmd": ["/gopnik/bin/gopnikslave", "-stylesheet", "/openstreetmap-carto/stylesheet.xml", "-pluginsPath", "/usr/lib/mapnik/2.2/input", "-fontsPath", "/usr/share/fonts", "-scaleFactor", "2"],
+			"Cmd": ["/gopnik/bin/gopnikslave", "-stylesheet", "/map_data/stylesheet.xml", "-pluginsPath", "/usr/lib/mapnik/2.2/input", "-fontsPath", "/usr/share/fonts", "-scaleFactor", "2"],
 			"MinZoom":          1,
 			"MaxZoom":          22,
 			"PoolSize":         2,

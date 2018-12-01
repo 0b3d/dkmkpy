@@ -196,11 +196,11 @@ if __name__ == "__main__":
     try:
         mapfile = os.environ['MAPNIK_MAP_FILE']
     except KeyError:
-        mapfile = "bs_osm.xml"
+        mapfile = "/map_data/bs_osm.xml"
     try:
         tile_dir = os.environ['MAPNIK_TILE_DIR']
     except KeyError:
-        tile_dir = "tiles"
+        tile_dir = "/images/pytiles/"
 
     if not tile_dir.endswith('/'):
         tile_dir = tile_dir + '/'
@@ -216,9 +216,9 @@ if __name__ == "__main__":
 
 #    render_tiles(bbox, mapfile, tile_dir, 0, 5, "World")
 
-    minZoom = 1
-    maxZoom = 12
-    bbox = (-2.63, 51.478,-2.51,51.427)
+    minZoom = 17
+    maxZoom = 19
+    bbox = (-2.60, 51.50,-2.50,51.40)
     render_tiles(bbox, mapfile, tile_dir, minZoom, maxZoom)
 
 """---    # Muenchen

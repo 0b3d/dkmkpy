@@ -1,7 +1,7 @@
 FROM dpokidov/gopnik
 
 RUN apt-get update && \
-    apt-get install -y git curl unzip node-carto mapnik-utils fontconfig && \
+    apt-get install -y git curl unzip node-carto mapnik-utils fontconfig nano && \
     rm -rf /var/lib/apt/lists/*
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
     python get-pip.py && \

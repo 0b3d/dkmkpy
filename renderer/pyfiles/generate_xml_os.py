@@ -15,10 +15,10 @@ REASONABLE_DEFAULTS = {
         'world_boundaries':'../openstreetmap-carto/data', # relative path
         'symbols':'../openstreetmap-carto/symbols', # relative path
         'prefix':'planet_osm', # default osm2pgsql table prefix
-        'extent':'-293594,6706279,-280218,6697259', # world in merc
+        #'extent':'-293594,6706279,-280218,6697259', # world in merc
         'inc':'../map_data/inc/*.template', # search path for inc templates to parse
         'estimate_extent':'false',   
-        'extent':'-293594,6706279,-280218,6697259',
+        'extent':'-325784.36424912,5743147.85822298,-253460.12347616,5714795.00655692',
         'dbname' : 'gis',
         'user' : 'postgres',
 	'port' : '5432',

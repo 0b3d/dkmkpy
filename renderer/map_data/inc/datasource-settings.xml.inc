@@ -14,4 +14,4 @@ Note: feel free to leave password, host, port, or use blank
 <Parameter name="estimate_extent">false</Parameter>
 <!-- manually provided extent in epsg 900913 for whole globe -->
 <!-- providing this speeds up Mapnik database queries -->
-<Parameter name="extent">-293594,6706279,-280218,6697259</Parameter>
+<Parameter name="extent">-325784.36424912,5743147.85822298,-253460.12347616,5714795.00655692</Parameter>

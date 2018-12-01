@@ -6,6 +6,7 @@ except:
     import mapnik
 
 import sys, os
+import pickle
 
 # Set up projections
 # spherical mercator (most common target map projection of osm data imported with osm2pgsql)
@@ -26,12 +27,13 @@ if __name__ == "__main__":
     except KeyError:
         mapfile = "/map_data/bs_osm.xml"
     
-    map_uri = "/images/image.png"
-
+    map_uri = "/images/image0.png"
+    tensor = {}
     #---------------------------------------------------
     #  Change this to the bounding box you want
     #
-    bounds = (-2.63, 51.50, -2.50, 51.35)
+    shift = 0.17
+    bounds = (-2.925299 , 51.336877 + shift, -2.276272 , 51.591575 -shift) #'extent':'-325784.36424912,5743147.85822298,-253460.12347616,5714795.00655692',
     #---------------------------------------------------
 
     z = 10
@@ -72,6 +74,12 @@ if __name__ == "__main__":
     
     sys.stdout.write('output image to %s!\n' % map_uri)
     
+    tensor[0] = im.__reduce__
+    
+    output = open('data.pkl', 'wb')
+    pickle.dump(tensor, output)
+    output.close()
+    
     # Note: instead of creating an image, rendering to it, and then 
     # saving, we can also do this in one step like:
     # mapnik.render_to_file(m, map_uri,'png')
@@ -82,4 +90,4 @@ if __name__ == "__main__":
     # mapnik.render_to_file(m, "image.pdf")
     #mapnik.render_to_file(m, "image.svg")
     
-
+    
