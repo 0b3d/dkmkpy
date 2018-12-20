@@ -91,60 +91,16 @@
       },
       "advanced": {}
     },
-   {
-      "name": "icesheet-outlines",
-      "srs-name": "900913",
-      "geometry": "linestring",
-      "class": "",
-      "id": "icesheet-outlines",
-      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
-      "Datasource": {
-        "type": "shape",
-        "file": "data/antarctica-icesheet-outlines-3857/icesheet_outlines.shp"
-      },
-      "extent": [
-        -180,
-        -85.05112877980659,
-        180,
-        85.05112877980659
-      ],
-      "properties": {
-        "minzoom": 4
-      },
-      "advanced": {}
-    },
     {
-      "name": "icesheet-poly",
+      "name": "nature-reserve-boundaries",
       "srs-name": "900913",
       "geometry": "polygon",
       "class": "",
-      "id": "icesheet-poly",
-      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
-      "Datasource": {
-        "type": "shape",
-        "file": "data/antarctica-icesheet-polygons-3857/icesheet_polygons.shp"
-      },
-      "extent": [
-        -180,
-        -85.05112877980659,
-        180,
-        85.05112877980659
-      ],
-      "properties": {
-        "minzoom": 4
-      },
-      "advanced": {}
-    },
-    {
-      "name": "water-areas",
-      "srs-name": "900913",
-      "geometry": "polygon",
-      "class": "",
-      "id": "water-areas",
+      "id": "nature-reserve-boundaries",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "Datasource": {
         "extent": "-20037508,-20037508,20037508,20037508",
-        "table": "(SELECT\n    way,\n    \"natural\",\n    waterway,\n    landuse,\n    name,\n    way_area/NULLIF(!pixel_width!::real*!pixel_height!::real,0) AS way_pixels\n  FROM planet_osm_polygon\n  WHERE\n    (waterway IN ('dock', 'riverbank', 'canal')\n      OR landuse IN ('reservoir', 'basin')\n      OR \"natural\" IN ('water', 'glacier'))\n    AND building IS NULL\n    AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real\n  ORDER BY z_order, way_area DESC\n) AS water_areas",
+        "table": "(SELECT\n    way,\n    name,\n    boundary,\n    way_area/NULLIF(!pixel_width!::real*!pixel_height!::real,0) AS way_pixels\n  FROM planet_osm_polygon\n  WHERE (boundary = 'national_park' OR leisure = 'nature_reserve')\n    AND building IS NULL\n    AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real\n) AS national_park_boundaries",
         "geometry_field": "way",
         "type": "postgis",
         "key_field": "",
@@ -157,20 +113,20 @@
         85.05112877980659
       ],
       "properties": {
-        "minzoom": 4
+        "minzoom": 7
       },
       "advanced": {}
     },
     {
-      "name": "water-lines-casing",
+      "name": "cliffs",
       "srs-name": "900913",
       "geometry": "linestring",
       "class": "",
-      "id": "water-lines-casing",
+      "id": "cliffs",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "Datasource": {
         "extent": "-20037508,-20037508,20037508,20037508",
-        "table": "(SELECT\n    way, waterway, intermittent,\n    CASE WHEN tunnel IN ('yes', 'culvert') THEN 'yes' ELSE 'no' END AS int_tunnel\n  FROM planet_osm_line\n  WHERE waterway IN ('stream', 'drain', 'ditch')\n) AS water_lines_casing",
+        "table": "(SELECT\n    way, \"natural\", man_made\n  FROM planet_osm_line\n  WHERE \"natural\" = 'cliff' OR man_made = 'embankment'\n) AS cliffs",
         "geometry_field": "way",
         "type": "postgis",
         "key_field": "",
@@ -188,68 +144,15 @@
       "advanced": {}
     },
     {
-      "name": "water-lines-low-zoom",
-      "srs-name": "900913",
-      "geometry": "linestring",
-      "class": "",
-      "id": "water-lines-low-zoom",
-      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
-      "Datasource": {
-        "extent": "-20037508,-20037508,20037508,20037508",
-        "table": "(SELECT way, waterway, intermittent\n  FROM planet_osm_line\n  WHERE waterway = 'river'\n) AS water_lines_low_zoom",
-        "geometry_field": "way",
-        "type": "postgis",
-        "key_field": "",
-        "dbname": "gis"
-      },
-      "extent": [
-        -180,
-        -85.05112877980659,
-        180,
-        85.05112877980659
-      ],
-      "properties": {
-        "maxzoom": 11,
-        "minzoom": 8
-      },
-      "advanced": {}
-    },
-    {
-      "name": "water-lines",
-      "srs-name": "900913",
-      "geometry": "linestring",
-      "class": "water-lines",
-      "id": "water-lines",
-      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
-      "Datasource": {
-        "extent": "-20037508,-20037508,20037508,20037508",
-        "table": "(SELECT\n    way, waterway, name, intermittent,\n    CASE WHEN tunnel IN ('yes', 'culvert') THEN 'yes' ELSE 'no' END AS int_tunnel,\n    'no' AS bridge\n  FROM planet_osm_line\n  WHERE waterway IN ('river', 'canal', 'derelict_canal', 'stream', 'drain', 'ditch', 'wadi')\n    AND (bridge IS NULL OR bridge NOT IN ('yes', 'aqueduct'))\n  ORDER BY z_order\n) AS water_lines",
-        "geometry_field": "way",
-        "type": "postgis",
-        "key_field": "",
-        "dbname": "gis"
-      },
-      "extent": [
-        -180,
-        -85.05112877980659,
-        180,
-        85.05112877980659
-      ],
-      "properties": {
-        "minzoom": 12
-      },
-      "advanced": {}
-    },
-    {
-      "name": "marinas-area",
+      "name": "trees",
       "srs-name": "900913",
       "geometry": "polygon",
       "class": "",
-      "id": "marinas-area",
+      "id": "trees",
       "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
       "Datasource": {
         "extent": "-20037508,-20037508,20037508,20037508",
-        "table": "(SELECT\n    way\n  FROM planet_osm_polygon\n  WHERE leisure = 'marina'\n) AS marinas_area",
+        "table": "(SELECT\n    way, \"natural\"\n  FROM planet_osm_point\n  WHERE \"natural\" = 'tree'\nUNION ALL\nSELECT\n    way, \"natural\"\n  FROM planet_osm_line\n  WHERE \"natural\" = 'tree_row'\n) AS trees",
         "geometry_field": "way",
         "type": "postgis",
         "key_field": "",
@@ -262,7 +165,7 @@
         85.05112877980659
       ],
       "properties": {
-        "minzoom": 14
+        "minzoom": 16
       },
       "advanced": {}
     }

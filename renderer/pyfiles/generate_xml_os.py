@@ -11,18 +11,18 @@ import tempfile
 __version__ = '0.1.0'
 
 REASONABLE_DEFAULTS = {
-        'epsg':'900913', # default osm2pgsql import srid
+        'epsg':'4326', # default osm2pgsql import srid
         'world_boundaries':'../openstreetmap-carto/data', # relative path
         'symbols':'../openstreetmap-carto/symbols', # relative path
         'prefix':'planet_osm', # default osm2pgsql table prefix
         #'extent':'-293594,6706279,-280218,6697259', # world in merc
         'inc':'../map_data/inc/*.template', # search path for inc templates to parse
         'estimate_extent':'false',   
-        'extent':'-325784.36424912,5743147.85822298,-253460.12347616,5714795.00655692',
+        'extent':'-2.92999633465543, 51.5899987860136,-2.27000409541281 , 51.3400128720829',
         'dbname' : 'gis',
         'user' : 'postgres',
-	'port' : '5432',
-	'host' : 'localhost',
+        'port' : '5432',
+        'host' : 'localhost',
         }
 
 def color_text(color, text):

@@ -5,7 +5,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
     python get-pip.py && \
-    pip install numpy
+    pip install numpy && \
+    pip install matplotlib && \
+    apt-get install python-tk
 
 WORKDIR /
 RUN wget https://github.com/adobe-fonts/source-sans-pro/archive/2.020R-ro/1.075R-it.tar.gz && \

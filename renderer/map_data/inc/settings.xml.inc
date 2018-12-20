@@ -6,14 +6,14 @@ Settings for symbols, the spatial reference of your postgis tables, coastline sh
 <!ENTITY symbols "../openstreetmap-carto/symbols">
 
 <!-- use the '&srs900913;' entity if you have called osm2pgsql without special flags (or with -m); use '&srs4326;' if you have used -l -->
-<!ENTITY osm2pgsql_projection "&srs900913;">
+<!ENTITY osm2pgsql_projection "&srs4326;">
 
 <!-- used for 'node in way' ST_DWithin spatial operations -->
 <!-- Use 0.1 (meters) when your database is in 900913     -->
 <!-- Use 0.000001 (degrees) when your database is in 4326 -->
 <!ENTITY dwithin_900913 "0.1">
 <!ENTITY dwithin_4326 "0.00001">
-<!ENTITY dwithin_node_way "&dwithin_900913;">
+<!ENTITY dwithin_node_way "&dwithin_4326;">
 
 <!-- use 'world_boundaries', which is the usual naming for the local folder the coastline shapefiles are unzipped into -->
 <!ENTITY world_boundaries "../openstreetmap-carto/data">

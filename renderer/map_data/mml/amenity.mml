@@ -1,0 +1,317 @@
+{
+  "interactivity": false,
+  "Layer": [
+    {
+      "name": "ocean-lz",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "ocean",
+      "id": "ocean-lz",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 9
+      },
+      "advanced": {}
+    },
+    {
+      "name": "ocean",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "ocean",
+      "id": "ocean",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/water-polygons-split-3857/water_polygons.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 10
+      },
+      "advanced": {}
+    },
+    {
+      "name": "builtup",
+      "srs-name": "mercator",
+      "geometry": "polygon",
+      "class": "",
+      "id": "builtup",
+      "srs": "+proj=merc +datum=WGS84 +over",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/world_boundaries/builtup_area.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 9,
+        "minzoom": 8
+      },
+      "advanced": {}
+    },
+    {
+      "name": "necountries",
+      "srs-name": "WGS84",
+      "geometry": "linestring",
+      "class": "",
+      "id": "necountries",
+      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 3,
+        "minzoom": 1
+      },
+      "advanced": {}
+    },
+    {
+      "name": "stations",
+      "srs-name": "900913",
+      "geometry": "point",
+      "class": "stations",
+      "id": "stations",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    name,\n    railway,\n    aerialway,\n    CASE railway \n      WHEN 'station' THEN 1 \n      WHEN 'subway_entrance' THEN 3\n      ELSE 2\n    END\n      AS prio\n  FROM planet_osm_point\n  WHERE railway IN ('station', 'halt', 'tram_stop', 'subway_entrance')\n    OR aerialway = 'station'\n  ORDER BY prio\n) AS stations",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 12
+      },
+      "advanced": {}
+    },
+    {
+      "name": "stations-poly",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "stations",
+      "id": "stations-poly",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    name,\n    railway,\n    aerialway\nFROM planet_osm_polygon\nWHERE railway IN ('station', 'halt', 'tram_stop')\n  OR aerialway = 'station'\n) AS stations_poly",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 12
+      },
+      "advanced": {}
+    },
+    {
+      "name": "amenity-points-poly",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "points",
+      "id": "amenity-points-poly",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    COALESCE(\n      'aeroway_' || CASE WHEN aeroway IN ('helipad', 'aerodrome') THEN aeroway ELSE NULL END,\n      'tourism_' || CASE WHEN tourism IN ('alpine_hut', 'camp_site', 'caravan_site', 'chalet', 'guest_house', \n                                          'hostel', 'hotel', 'motel', 'information', 'museum', 'picnic_site') THEN tourism ELSE NULL END,\n      'amenity_' || CASE WHEN amenity IN ('shelter', 'atm', 'bank', 'bar', 'bicycle_rental', 'bus_station', 'cafe', \n                                          'car_rental', 'car_wash', 'cinema', 'clinic', 'community_centre', 'fire_station', 'fountain',\n                                          'fuel', 'hospital', 'ice_cream', 'embassy', 'library', 'courthouse', 'townhall', 'parking', \n                                          'bicycle_parking', 'motorcycle_parking', 'pharmacy', 'doctors', 'dentist', 'place_of_worship', \n                                          'police', 'post_box', 'post_office', 'pub', 'biergarten', 'recycling', 'restaurant', 'food_court', \n                                          'fast_food', 'telephone', 'emergency_phone', 'taxi', 'theatre', 'toilets', 'drinking_water', \n                                          'prison', 'hunting_stand', 'nightclub', 'veterinary', 'social_facility') THEN amenity ELSE NULL END, \n      'shop_' || CASE WHEN shop IN ('supermarket', 'bag', 'bakery', 'beauty', 'books', 'butcher', 'clothes', 'computer', \n                                    'confectionery', 'fashion', 'convenience', 'department_store', 'doityourself', 'hardware', 'florist', \n                                    'garden_centre', 'hairdresser', 'hifi', 'ice_cream', 'car', 'car_repair', 'bicycle', 'mall', 'pet', \n                                    'photo', 'photo_studio', 'photography', 'seafood', 'shoes', 'alcohol', 'gift', 'furniture', 'kiosk', \n                                    'mobile_phone', 'motorcycle', 'musical_instrument', 'newsagent', 'optician', 'jewelry', 'jewellery', \n                                    'electronics', 'chemist', 'toys', 'travel_agency', 'car_parts', 'greengrocer', 'farm', 'stationery', \n                                    'laundry', 'dry_cleaning', 'beverages', 'perfumery', 'cosmetics', 'variety_store', 'wine', 'outdoor', \n                                    'copyshop', 'sports') THEN shop \n                      WHEN shop IN ('accessories', 'antiques', 'appliance', 'art', 'baby_goods', 'bathroom_furnishing', \n                                    'bed', 'boat', 'bookmaker', 'boutique', 'builder', 'building_materials', 'camera', 'car_service', \n                                    'carpet', 'charity', 'cheese', 'chocolate', 'coffee', 'communication', 'craft', 'curtain', 'dairy', \n                                    'deli', 'discount', 'e-cigarette', 'electrical', 'energy', 'erotic', 'estate_agent', \n                                    'fabric', 'fishing', 'flooring', 'food', 'frame', 'frozen_food', 'funeral_directors', 'furnace', \n                                    'gallery', 'games', 'gas', 'general', 'glaziery', 'grocery', 'health', 'health_food', 'hearing_aids', \n                                    'herbalist', 'hobby', 'household', 'houseware', 'hunting', 'interior_decoration', 'kitchen', \n                                    'leather', 'lighting', 'locksmith', 'lottery', 'market', 'massage', 'medical', 'medical_supply', 'money_lender', \n                                    'motorcycle_repair', 'music', 'office_supplies', 'organic', 'paint', 'pastry', 'pawnbroker', \n                                    'phone', 'pottery', 'printing', 'radiotechnics', 'real_estate', 'religion', 'rental', 'salon', \n                                    'scuba_diving', 'second_hand', 'sewing', 'shoe_repair', 'shopping_centre', 'solarium', 'souvenir',  \n                                    'tailor', 'tanning', 'tattoo', 'tea', 'ticket', 'tiles', 'tobacco', 'trade', 'tyres', 'vacuum_cleaner', 'video', \n                                    'video_games', 'watches', 'wholesale', 'yes') THEN 'other' ELSE NULL END,\n      'leisure_' || CASE WHEN leisure IN ('water_park', 'playground', 'miniature_golf', 'golf_course', 'picnic_table') THEN leisure ELSE NULL END,\n      'man_made_' || CASE WHEN man_made IN ('mast', 'water_tower', 'lighthouse', 'windmill') THEN man_made ELSE NULL END,\n      'natural_' || CASE WHEN \"natural\" IN ('spring') THEN \"natural\" ELSE NULL END,\n      'historic_' || CASE WHEN historic IN ('memorial', 'monument', 'archaeological_site') THEN historic ELSE NULL END,\n      'highway_'|| CASE WHEN highway IN ('bus_stop', 'elevator', 'traffic_signals') THEN highway ELSE NULL END,\n      'power_' || CASE WHEN power IN ('generator') THEN power ELSE NULL END,\n      'tourism_' || CASE WHEN tourism IN ('viewpoint') THEN tourism ELSE NULL END\n    ) AS feature,\n    access,\n    religion,\n    denomination,\n    \"generator:source\",\n    power_source,\n    way_area/NULLIF(!pixel_width!::real*!pixel_height!::real,0) AS way_pixels\n  FROM planet_osm_polygon\n  -- The upcoming where clause is needed for performance only, as the CASE statements would end up doing the equivalent filtering\n  WHERE aeroway IN ('helipad', 'aerodrome')\n    OR tourism IN ('alpine_hut', 'camp_site', 'caravan_site', 'chalet', 'guest_house', 'hostel', \n                   'hotel', 'motel', 'information', 'museum', 'viewpoint', 'picnic_site')\n    OR amenity IN ('shelter', 'atm', 'bank', 'bar', 'bicycle_rental', 'bus_station', 'cafe', \n                   'car_rental', 'car_wash', 'cinema', 'clinic', 'community_centre',\n                   'fire_station', 'fountain', 'fuel', 'hospital', 'ice_cream', 'embassy', 'library', 'courthouse', \n                   'townhall', 'parking', 'bicycle_parking', 'motorcycle_parking', 'pharmacy', 'doctors', \n                   'dentist', 'place_of_worship', 'police', 'post_box', 'post_office', 'pub', 'biergarten', \n                   'recycling', 'restaurant', 'food_court', 'fast_food', 'telephone', 'emergency_phone', 'taxi', \n                   'theatre', 'toilets', 'drinking_water', 'prison', 'hunting_stand', 'nightclub', 'veterinary',\n                   'social_facility')\n    OR shop IS NOT NULL -- skip checking a huge list and use a null check\n    OR leisure IN ('water_park', 'playground', 'miniature_golf', 'golf_course', 'picnic_table')\n    OR man_made IN ('mast', 'water_tower', 'lighthouse', 'windmill')\n    OR \"natural\" IN ('spring')\n    OR historic IN ('memorial', 'monument', 'archaeological_site')\n    OR highway IN ('bus_stop', 'elevator', 'traffic_signals')\n    OR (power = 'generator' AND (\"generator:source\" = 'wind' OR power_source = 'wind'))\n  ORDER BY way_area desc\n) AS amenity_points_poly",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 10
+      },
+      "advanced": {}
+    },
+    {
+      "name": "amenity-points",
+      "srs-name": "900913",
+      "geometry": "point",
+      "class": "points",
+      "id": "amenity-points",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    COALESCE(\n      'aeroway_' || CASE WHEN aeroway IN ('helipad', 'aerodrome') THEN aeroway ELSE NULL END,\n      'tourism_' || CASE WHEN tourism IN ('alpine_hut', 'camp_site', 'caravan_site', 'chalet', 'guest_house', 'hostel', \n                                          'hotel', 'motel', 'information', 'museum', 'picnic_site') THEN tourism ELSE NULL END,\n      'amenity_' || CASE WHEN amenity IN ('shelter', 'atm', 'bank', 'bar', 'bicycle_rental', 'bus_station', 'cafe', \n                                          'car_rental', 'car_wash', 'cinema', 'clinic', 'community_centre', 'fire_station', 'fountain',\n                                          'fuel', 'hospital', 'ice_cream', 'embassy', 'library', 'courthouse', 'townhall', 'parking', \n                                          'bicycle_parking', 'motorcycle_parking', 'pharmacy', 'doctors', 'dentist', 'place_of_worship', \n                                          'police', 'post_box', 'post_office', 'pub', 'biergarten', 'recycling', 'restaurant', 'food_court', \n                                          'fast_food', 'telephone', 'emergency_phone', 'taxi', 'theatre', 'toilets', 'drinking_water', \n                                          'prison', 'hunting_stand', 'nightclub', 'veterinary', 'social_facility') THEN amenity ELSE NULL END,\n      'shop_' || CASE WHEN shop IN ('supermarket', 'bag', 'bakery', 'beauty', 'books', 'butcher', 'clothes', 'computer', 'confectionery', \n                                    'fashion', 'convenience', 'department_store', 'doityourself', 'hardware', 'florist', 'garden_centre', \n                                    'hairdresser', 'hifi', 'ice_cream', 'car', 'car_repair', 'bicycle', 'mall', 'pet', 'photo', 'photo_studio', \n                                    'photography', 'seafood', 'shoes', 'alcohol', 'gift', 'furniture', 'kiosk', 'mobile_phone', 'motorcycle', \n                                    'musical_instrument', 'newsagent', 'optician', 'jewelry', 'jewellery', 'electronics', 'chemist', 'toys', \n                                    'travel_agency', 'car_parts', 'greengrocer', 'farm', 'stationery', 'laundry', 'dry_cleaning', 'beverages', \n                                    'perfumery', 'cosmetics', 'variety_store', 'wine', 'outdoor', 'copyshop', 'sports') THEN shop \n                      WHEN shop IN ('accessories', 'antiques', 'appliance', 'art', 'baby_goods', 'bathroom_furnishing', 'bed',  \n                                    'boat', 'bookmaker', 'boutique', 'builder', 'building_materials', 'camera', 'car_service', 'carpet', 'charity', \n                                    'cheese', 'chocolate', 'coffee', 'communication', 'craft', 'curtain', 'dairy', 'deli',   \n                                    'discount', 'e-cigarette', 'electrical', 'energy', 'erotic', 'estate_agent', 'fabric', 'fishing', \n                                    'flooring', 'food', 'frame', 'frozen_food', 'funeral_directors', 'furnace', 'gallery', 'games', 'gas',  \n                                    'general', 'glaziery', 'grocery', 'health', 'health_food', 'hearing_aids', 'herbalist', 'hobby', 'household',  \n                                    'houseware', 'hunting', 'interior_decoration', 'kitchen', 'leather', 'lighting', 'locksmith', 'lottery',  \n                                    'market', 'massage', 'medical', 'medical_supply', 'money_lender', 'motorcycle_repair', 'music', 'office_supplies',  \n                                    'organic', 'paint', 'pastry', 'pawnbroker', 'phone', 'pottery', 'printing', 'radiotechnics', \n                                    'real_estate', 'religion', 'rental', 'salon', 'scuba_diving', 'second_hand', 'sewing', 'shoe_repair', 'shopping_centre', \n                                    'solarium', 'souvenir', 'tailor', 'tanning', 'tattoo', 'tea', 'ticket', 'tiles', 'tobacco', 'trade', 'tyres', \n                                    'vacuum_cleaner', 'video', 'video_games', 'watches', 'wholesale', 'yes') THEN 'other' ELSE NULL END,\n      'leisure_' || CASE WHEN leisure IN ('water_park', 'playground', 'miniature_golf', 'golf_course', 'picnic_table', 'slipway') THEN leisure ELSE NULL END,\n      'man_made_' || CASE WHEN man_made IN ('mast', 'water_tower', 'lighthouse', 'windmill') THEN man_made ELSE NULL END,\n      'natural_' || CASE WHEN \"natural\" IN ('peak', 'volcano', 'saddle', 'spring', 'cave_entrance') THEN \"natural\" ELSE NULL END,\n      'historic_' || CASE WHEN historic IN ('memorial', 'monument', 'archaeological_site') THEN historic ELSE NULL END,\n      'highway_'|| CASE WHEN highway IN ('bus_stop', 'elevator', 'traffic_signals', 'ford') THEN highway ELSE NULL END,\n      'power_' || CASE WHEN power IN ('generator') THEN power ELSE NULL END,\n      'tourism_' || CASE WHEN tourism IN ('viewpoint') THEN tourism ELSE NULL END,\n      'man_made_' || CASE WHEN man_made IN ('cross') THEN man_made ELSE NULL END,\n      'historic_' || CASE WHEN historic IN ('wayside_cross') THEN historic ELSE NULL END\n    ) AS feature,\n    access,\n    CASE\n      WHEN \"natural\" IN ('peak', 'volcano', 'saddle') THEN\n        CASE\n          WHEN ele ~ '^-?\\d{1,4}(\\.\\d+)?$' THEN ele::NUMERIC\n          ELSE NULL\n        END\n      ELSE NULL\n    END AS score,\n    religion,\n    denomination,\n    \"generator:source\",\n    power_source,\n    NULL AS way_pixels\n  FROM planet_osm_point\n  -- The upcoming where clause is needed for performance only, as the CASE statements would end up doing the equivalent filtering\n  WHERE aeroway IN ('helipad', 'aerodrome')\n    OR tourism IN ('alpine_hut', 'camp_site', 'caravan_site', 'chalet', 'guest_house', 'hostel', \n                   'hotel', 'motel', 'information', 'museum', 'viewpoint', 'picnic_site')\n    OR amenity IN ('shelter', 'atm', 'bank', 'bar', 'bicycle_rental', 'bus_station', 'cafe', \n                   'car_rental',  'car_wash', 'cinema', 'clinic', 'community_centre',\n                   'fire_station', 'fountain', 'fuel', 'hospital', 'ice_cream', 'embassy', 'library', 'courthouse', \n                   'townhall', 'parking', 'bicycle_parking', 'motorcycle_parking', 'pharmacy', 'doctors', \n                   'dentist', 'place_of_worship', 'police', 'post_box', 'post_office', 'pub', 'biergarten', \n                   'recycling', 'restaurant', 'food_court', 'fast_food', 'telephone', 'emergency_phone', \n                   'taxi', 'theatre', 'toilets', 'drinking_water', 'prison', 'hunting_stand', 'nightclub', \n                   'veterinary', 'social_facility')\n    OR shop IS NOT NULL -- skip checking a huge list and use a null check\n    OR leisure IN ('water_park', 'playground', 'miniature_golf', 'golf_course', 'picnic_table', 'slipway')\n    OR man_made IN ('mast', 'water_tower', 'lighthouse', 'windmill', 'cross')\n    OR \"natural\" IN ('peak', 'volcano', 'saddle', 'spring', 'cave_entrance')\n    OR historic IN ('memorial', 'monument', 'archaeological_site', 'wayside_cross')\n    OR highway IN ('bus_stop', 'elevator', 'traffic_signals', 'ford')\n    OR (power = 'generator' AND (\"generator:source\" = 'wind' OR power_source = 'wind'))\n  ORDER BY score DESC NULLS LAST\n  ) AS amenity_points",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 10
+      },
+      "advanced": {}
+    },
+       {
+      "name": "amenity-low-priority",
+      "srs-name": "900913",
+      "geometry": "point",
+      "class": "amenity-low-priority",
+      "id": "amenity-low-priority",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    amenity,\n    railway,\n    highway,\n    barrier,\n    man_made,\n    historic,\n    access,\n    name,\n    CASE WHEN amenity='waste_basket' THEN 2 ELSE 1 END AS prio\n  FROM planet_osm_point p\n  WHERE barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block')\n     OR highway IN ('mini_roundabout')\n     OR railway = 'level_crossing'\n     OR amenity IN ('parking', 'bicycle_parking', 'motorcycle_parking', 'bench', 'waste_basket')\n     OR historic = 'wayside_cross'\n     OR man_made = 'cross'\n  ORDER BY prio\n  ) AS amenity_low_priority",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 14
+      },
+      "advanced": {}
+    },
+    {
+      "name": "amenity-low-priority-poly",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "amenity-low-priority",
+      "id": "amenity-low-priority-poly",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    amenity,\n    railway,\n    highway,\n    barrier,\n    man_made,\n    historic,\n    access,\n    name\n  FROM planet_osm_polygon\n  WHERE barrier IN ('bollard', 'gate', 'lift_gate', 'swing_gate', 'block')\n     OR highway IN ('mini_roundabout')\n     OR railway = 'level_crossing'\n         OR amenity IN ('parking', 'bicycle_parking', 'motorcycle_parking')\n  ) AS amenity_low_priority_poly",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 14
+      },
+      "advanced": {}
+    }
+  ],
+  "scale": 1,
+  "center": [
+    0,
+    0,
+    4
+  ],
+  "format": "png",
+  "_parts": {
+    "extents": {
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "srs-name": "900913"
+    },
+    "osm2pgsql": {
+      "geometry_field": "way",
+      "type": "postgis",
+      "dbname": "gis",
+      "extent": "-20037508,-20037508,20037508,20037508",
+      "key_field": ""
+    },
+    "extents84": {
+      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "srs-name": "WGS84"
+    }
+  },
+  "metatile": 2,
+  "bounds": [
+    -180,
+    -85.05112877980659,
+    180,
+    85.05112877980659
+  ],
+  "name": "OpenStreetMap Carto",
+  "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+  "Stylesheet": [
+    "style.mss",
+    "shapefiles.mss",
+    "landcover.mss",
+    "water.mss",
+    "water-features.mss",
+    "roads.mss",
+    "power.mss",
+    "citywalls.mss",
+    "placenames.mss",
+    "buildings.mss",
+    "stations.mss",
+    "amenity-points.mss",
+    "ferry-routes.mss",
+    "aerialways.mss",
+    "admin.mss",
+    "addressing.mss"
+  ],
+  "minzoom": 0,
+  "maxzoom": 22,
+  "description": "A faithful reimplementation of the standard OpenStreetMap style"
+}

@@ -6,7 +6,7 @@ except:
     import mapnik
 
 import sys, os
-import pickle
+
 
 # Set up projections
 # spherical mercator (most common target map projection of osm data imported with osm2pgsql)
@@ -22,72 +22,46 @@ if not hasattr(mapnik,'mapnik_version') and not mapnik.mapnik_version() >= 600:
     raise SystemExit('This script requires Mapnik >=0.6.0)')
 
 if __name__ == "__main__":
-    try:
-        mapfile = os.environ['MAPNIK_MAP_FILE']
-    except KeyError:
-        mapfile = "/map_data/bs_osm.xml"
-    
-    map_uri = "/images/image0.png"
-    tensor = {}
-    #---------------------------------------------------
-    #  Change this to the bounding box you want
-    #
-    shift = 0.17
-    bounds = (-2.925299 , 51.336877 + shift, -2.276272 , 51.591575 -shift) #'extent':'-325784.36424912,5743147.85822298,-253460.12347616,5714795.00655692',
-    #---------------------------------------------------
+    layers = {0:'complete',1:'amenity', 2:'barriers',3:'bridge',4:'buildings',5:'landcover',6:'landuse',7:'natural',8:'others',9:'roads',10:'text',11:'water'}
+    for i in range(0,12):
+        try:
+            mapfile = os.environ['MAPNIK_MAP_FILE']
+        except KeyError:
+            mapfile = "/map_data/styles/bs_"+ layers[i] + ".xml"
+        
+        map_uri = "/images/" + layers[i] + ".png"
+       
+        #---------------------------------------------------
+        #  Change this to the bounding box you want
+        #
+        bounds = (-2.925299 , 51.336877 , -2.276272 , 51.591575) #'extent':'-325784.36424912,5743147.85822298,-253460.12347616,5714795.00655692',
+        #---------------------------------------------------
 
-    z = 10
-    imgx = 500 * z
-    imgy = 500 * z
+        z = 10
+        imgx = 500 * z
+        imgy = 500 * z
 
-    m = mapnik.Map(imgx,imgy)
-    mapnik.load_map(m,mapfile)
-    
-    # ensure the target map projection is mercator
-    m.srs = merc.params()
+        m = mapnik.Map(imgx,imgy)
+        mapnik.load_map(m,mapfile)
+        
+        # ensure the target map projection is mercator
+        m.srs = merc.params()
 
-    if hasattr(mapnik,'Box2d'):
-        bbox = mapnik.Box2d(*bounds)
-    else:
-        bbox = mapnik.Envelope(*bounds)
+        if hasattr(mapnik,'Box2d'):
+            bbox = mapnik.Box2d(*bounds)
+        else:
+            bbox = mapnik.Envelope(*bounds)
 
-    # Our bounds above are in long/lat, but our map
-    # is in spherical mercator, so we need to transform
-    # the bounding box to mercator to properly position
-    # the Map when we call `zoom_to_box()`
-    transform = mapnik.ProjTransform(longlat,merc)
-    merc_bbox = transform.forward(bbox)
+        transform = mapnik.ProjTransform(longlat,merc)
+        merc_bbox = transform.forward(bbox)
+        m.zoom_to_box(merc_bbox)
+
+        # render the map to an image
+        im = mapnik.Image(imgx,imgy)
+        mapnik.render(m, im)
+        im.save(map_uri,'png')
+        
+        sys.stdout.write('output image to %s!\n' % map_uri)
     
-    # Mapnik internally will fix the aspect ratio of the bounding box
-    # to match the aspect ratio of the target image width and height
-    # This behavior is controlled by setting the `m.aspect_fix_mode`
-    # and defaults to GROW_BBOX, but you can also change it to alter
-    # the target image size by setting aspect_fix_mode to GROW_CANVAS
-    #m.aspect_fix_mode = mapnik.GROW_CANVAS
-    # Note: aspect_fix_mode is only available in Mapnik >= 0.6.0
-    m.zoom_to_box(merc_bbox)
-    
-    # render the map to an image
-    im = mapnik.Image(imgx,imgy)
-    mapnik.render(m, im)
-    im.save(map_uri,'png')
-    
-    sys.stdout.write('output image to %s!\n' % map_uri)
-    
-    tensor[0] = im.__reduce__
-    
-    output = open('data.pkl', 'wb')
-    pickle.dump(tensor, output)
-    output.close()
-    
-    # Note: instead of creating an image, rendering to it, and then 
-    # saving, we can also do this in one step like:
-    # mapnik.render_to_file(m, map_uri,'png')
-    
-    # And in Mapnik >= 0.7.0 you can also use `render_to_file()` to output
-    # to Cairo supported formats if you have Mapnik built with Cairo support
-    # For example, to render to pdf or svg do:
-    # mapnik.render_to_file(m, "image.pdf")
-    #mapnik.render_to_file(m, "image.svg")
-    
+
     
