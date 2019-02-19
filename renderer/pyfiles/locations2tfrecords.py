@@ -20,10 +20,10 @@ def _floats_feature(value):
 def _bytes_feature(value):
   return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
-def save_data(data, layers, label, lat, lon, writer):
+def save_data(data, layers, label, lat, lon, num_items, writer):
     
     coordinates = str(lat) + ',' + str(lon)
-    for item in range(0,21):
+    for item in range(0,num_items + 1):
         feature = { 
                 'label': _int64_feature(label),
                 'coordinates' : _bytes_feature(coordinates),
@@ -60,7 +60,7 @@ class RenderThread:
         self.maxZoom = 1
         self.printLock = printLock
 
-    def rendertiles(self, bounds, data, item, label, lat, layer, lon, projec):
+    def rendertiles(self, bounds, data, item, label, lat, layer, lon, num_items, projec):
         z = 1
         imgx = 128 * z
         imgy = 128 * z
@@ -105,15 +105,15 @@ class RenderThread:
                 self.q.task_done()
                 break
             else:
-                (name, bounds, data, item, label, lat, layer, lon, projec) = r
+                (name, bounds, data, item, label, lat, layer, lon, num_items, projec) = r
             
-            self.rendertiles(bounds, data, item, label, lat, layer, lon, projec)
+            self.rendertiles(bounds, data, item, label, lat, layer, lon, num_items, projec)
             self.printLock.acquire()
             self.printLock.release()
             self.q.task_done()
             
             
-def render_location(label, layers, location, num_threads, size, writer):
+def render_location(label, layers, location, num_items, num_threads, size, writer):
     with multiprocessing.Manager() as manager:
         data = manager.dict()   # Create a list that can be shared between processes
         queue = multiprocessing.JoinableQueue(32)
@@ -131,21 +131,21 @@ def render_location(label, layers, location, num_threads, size, writer):
             
         cpoint = [lon, lat]
         
-        #---Generate 21 images from shifting in the range [0,0.8*size] and rotating
-        for item in range(0 , 21) :
+        #---Generate num_tems images from shifting in the range [0,0.8*size] and rotating
+        for item in range(0 , num_items + 1) :
+            if item == 0:
+                shift_lat = 0
+                shift_lon = 0
+                teta = 0
+            else:    
+                shift_lat = 0.8*size*(rd.random()-rd.random()) 
+                shift_lon = 0.8*size*(rd.random()-rd.random()) 
+                teta = 360*rd.random()
             for layer in layers:
-                if item == 0:
-                    shift_lat = 0
-                    shift_lon = 0
-                    teta = 0
-                else:    
-                    shift_lat = 0.8*size*(rd.random()-rd.random()) 
-                    shift_lon = 0.8*size*(rd.random()-rd.random()) 
-                    teta = 360*rd.random()
                 new_cpoint = [cpoint[0]+shift_lon, cpoint[1]+shift_lat]
                 bounds = (new_cpoint[0]-size, new_cpoint[1]+size, new_cpoint[0]+size, new_cpoint[1]-size ) 
                 aeqd = mapnik.Projection('+proj=aeqd +ellps=WGS84 +lat_0=90 +lon_0='+str(teta))
-                t = ("Bristol", bounds, data, item, label, lat, layer, lon, aeqd)
+                t = ("Bristol", bounds, data, item, label, lat, layer, lon, num_items, aeqd)
                 queue.put(t)
         # Signal render threads to exit by sending empty request to queue
         for i in range(num_threads):
@@ -155,9 +155,9 @@ def render_location(label, layers, location, num_threads, size, writer):
        
         for i in range(num_threads):
             renderers[i].join()
-        save_data(data, layers, label, lat, lon, writer)
+        save_data(data, layers, label, lat, lon, num_items, writer)
     
-def render_images(layers, locations, num_threads, size, writer):
+def render_images(layers, locations, num_items, num_threads, size, writer):
     # Check if dir exists
     if not os.path.isdir(save_dir):
         print("Directory no exists, exit...")
@@ -165,14 +165,14 @@ def render_images(layers, locations, num_threads, size, writer):
     ntiles = 0
     label = 0
     total_locations = len(locations)
-    total_tiles = 21 * total_locations * len(layers)
+    total_tiles = num_items * total_locations * len(layers)
     
     for location in locations:
         start = time.time()
-        ntiles += 21*12
+        ntiles += num_items * len(layers)
         label  += 1
         print("Rendering location " + str(label) + "/" + str(total_locations))
-        render_location(label, layers, location, num_threads, size, writer)
+        render_location(label, layers, location, num_items, num_threads, size, writer)
         end = time.time()
         time_elapsed = end - start
         time_to_finish = time_elapsed * (total_locations - label) / 3600
@@ -181,17 +181,20 @@ def render_images(layers, locations, num_threads, size, writer):
     
 if __name__ == "__main__":
     layers = ['complete','amenity', 'barriers','bridge','buildings','landcover','landuse','natural','others','roads','text','water']
+    #layers = ['complete']   
     size = 0.0005
     road_nodes = "/map_data/road_nodes.pkl"
     save_dir = "/images/roads_tfrecords/" 
     
-    datasets = ["train_1", "validation_1", "test_1"]
-    process = {"train_1": True, "validation_1": True, "test_1": True}
-    porcentages = [[0,0.06], [0.06,0.08], [0.08,0.1]] #in %  
+    datasets = ["train_layers", "validation_layers", "test_layers"]
+    process = {"train_layers": True, "validation_layers": True, "test_layers": True}
+    porcentages = [[0,0.6], [0.6,0.8], [0.8,1]] #in %  
+    num_items = 10 #Total number of images by location (including rotated and shifted)
     
     with open(road_nodes, 'rb') as f:
         locations = pickle.load(f)
     print("{} Pointes were found".format(len(locations)))
+    rd.shuffle(locations)
 
     # Divide the dataset and render
     for dataset in datasets:
@@ -202,9 +205,9 @@ if __name__ == "__main__":
             dataset_fin  = int(porcentages[datasets.index(dataset)][1]*len(locations))
             locations_to_render = locations[dataset_init:dataset_fin]
             print("Num of locations to render: " + str(len(locations_to_render)))
-            print("Num of tiles to render: " + str(len(locations_to_render)* len(layers) * 21))
+            print("Num of tiles to render: " + str(len(locations_to_render)* len(layers) * num_items))
             writer = tf.python_io.TFRecordWriter(filename)
-            render_images(layers, locations_to_render, NUM_THREADS, size, writer)
+            render_images(layers, locations_to_render, num_items, NUM_THREADS, size, writer)
             writer.close()
             sys.stdout.flush()
         else:
