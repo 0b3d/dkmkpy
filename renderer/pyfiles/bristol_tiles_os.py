@@ -6,6 +6,9 @@ except:
     import mapnik
 
 import sys, os
+from StringIO import StringIO
+import tensorflow as tf, cv2 , pickle, numpy as np, random as rd
+
 # Set up projections
 # spherical mercator (most common target map projection of osm data imported with osm2pgsql)
 merc = mapnik.Projection('+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over')
@@ -15,121 +18,148 @@ longlat = mapnik.Projection('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
 # can also be constructed as:
 #longlat = mapnik.Projection('+init=epsg:4326')
 
+
+def _int64_feature(value):
+    return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
+    
+def _floats_feature(value):
+    return tf.train.Feature(float_list=tf.train.FloatList(value=[value]))
+           
+def _bytes_feature(value):
+  return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
+
+def save_data(data, layers, item, label, lat, lon, writer):
+    
+    coordinates = str(lat) + ',' + str(lon)
+    feature = { 
+            'label': _int64_feature(label),
+            'coordinates' : _bytes_feature(coordinates),
+            'lat'  : _floats_feature(lat),
+            'lon'  : _floats_feature(lon),
+            'item' : _int64_feature(item)
+           }
+    for i in range(len(layers)): 
+        feature[layers[i]]= _bytes_feature(tf.compat.as_bytes(data[i]))
+    # Create an example protocol buffer
+    example = tf.train.Example(features=tf.train.Features(feature=feature))
+    
+    # Serialize to string and write on the file
+    writer.write(example.SerializeToString())
+
 # ensure minimum mapnik version
 if not hasattr(mapnik,'mapnik_version') and not mapnik.mapnik_version() >= 600:
     raise SystemExit('This script requires Mapnik >=0.6.0)')
 
-def renderimage(bounds, mapfile, lon, lat, name, projec):
+def rendertiles( bounds, item, label, lat, layers, lon, projec, writer):
     z = 1
-    imgx = 256 * z
-    imgy = 256 * z
-    map_uri = "/images/" + str(lon) + '.' + str(lat) + '_' + name + ".png"
+    imgx = 128 * z
+    imgy = 128 * z
+    
+    for layer in layers:
+        index = layers.index(layer)
+        mapfile = "/map_data/styles/bs_" + layer + ".xml"
+     
+        m = mapnik.Map(imgx,imgy)
+        mapnik.load_map(m,mapfile)
+        # ensure the target map projection is mercator
+        m.srs = projec.params()
+        
+        if hasattr(mapnik,'Box2d'):
+            bbox = mapnik.Box2d(*bounds)
+        else:
+            bbox = mapnik.Envelope(*bounds)
 
-    m = mapnik.Map(imgx,imgy)
-    mapnik.load_map(m,mapfile)
-    # ensure the target map projection is mercator
-    m.srs = projec.params()
-	
-    if hasattr(mapnik,'Box2d'):
-        bbox = mapnik.Box2d(*bounds)
-    else:
-        bbox = mapnik.Envelope(*bounds)
+        transform = mapnik.ProjTransform(longlat,projec)
+        merc_bbox = transform.forward(bbox)
+        
+        m.zoom_to_box(merc_bbox)
+        
+        # render the map to an image
+        im = mapnik.Image(imgx,imgy)
+        mapnik.render(m, im)
+        
+        img = im.tostring('png256')
+        
+        if index == 0:
+            data=[img]
+            #data = np.expand_dims(data, 0) 
+        else:            
+            data.append(img)    
+                    
+    save_data(data, layers, item, label, lat, lon, writer)
 
-    # Our bounds above are in long/lat, but our map
-    # is in spherical mercator, so we need to transform
-    # the bounding box to mercator to properly position
-    # the Map when we call `zoom_to_box()`
-    transform = mapnik.ProjTransform(longlat,projec)
-    merc_bbox = transform.forward(bbox)
+def render_location(label, layers, location, size, writer):
+    lon = float(location[1].split('(')[1].split(')')[0].split()[0])
+    lat = float(location[1].split('(')[1].split(')')[0].split()[1])
+        
+    cpoint = [lon, lat]
     
-    # Mapnik internally will fix the aspect ratio of the bounding box
-    # to match the aspect ratio of the target image width and height
-    # This behavior is controlled by setting the `m.aspect_fix_mode`
-    # and defaults to GROW_BBOX, but you can also change it to alter
-    # the target image size by setting aspect_fix_mode to GROW_CANVAS
-    #m.aspect_fix_mode = mapnik.GROW_CANVAS
-    # Note: aspect_fix_mode is only available in Mapnik >= 0.6.0
-    m.zoom_to_box(merc_bbox)
+    #---Generate 21 images from shifting in the range [0,0.8*size] and rotating
+    for item in range(0 , 21) :
+        if item == 0:
+            shift_lat = 0
+            shift_lon = 0
+            teta = 0
+        else:    
+            shift_lat = 0.8*size*(rd.random()-rd.random()) 
+            shift_lon = 0.8*size*(rd.random()-rd.random()) 
+            teta = 360*rd.random()
+        new_cpoint = [cpoint[0]+shift_lon, cpoint[1]+shift_lat]
+        bounds = (new_cpoint[0]-size, new_cpoint[1]+size, new_cpoint[0]+size, new_cpoint[1]-size ) 
+        aeqd = mapnik.Projection('+proj=aeqd +ellps=WGS84 +lat_0=90 +lon_0='+str(teta))
+        rendertiles(bounds, item, label, lat, layers, lon, aeqd, writer)
     
-    # render the map to an image
-    im = mapnik.Image(imgx,imgy)
-    mapnik.render(m, im)
-    im.save(map_uri,'png')      
-    # Note: instead of creating an image, rendering to it, and then 
-    # saving, we can also do this in one step like:
-    # mapnik.render_to_file(m, map_uri,'png')
-    
-    # And in Mapnik >= 0.7.0 you can also use `render_to_file()` to output
-    # to Cairo supported formats if you have Mapnik built with Cairo support
-    # For example, to render to pdf or svg do:
-    # mapnik.render_to_file(m, "image.pdf")
-    #mapnik.render_to_file(m, "image.svg")
-    sys.stdout.write('output images to %s!\n' % map_uri)
-    
-def render_images(cpoint,shift,mapfile,lon,lat):
-    #---------------------------------------------------
-    # Original Image and 4 shifted
-    #cpoint = [-2.603100,51.456073]     
-    #cpoint = [-2.925299, 51.336877]
-    cpoint1 = [cpoint[0]+shift, cpoint[1]] #x+ shifted image
-    cpoint2 = [cpoint[0]-shift, cpoint[1]] #x- shifted image
-    cpoint3 = [cpoint[0], cpoint[1] + shift] #y+ shifted image
-    cpoint4 = [cpoint[0], cpoint[1] - shift] #y- shifted image
-    bounds0 = (cpoint[0]-size, cpoint[1]+size, cpoint[0]+size, cpoint[1]-size )     # Normal image bounds
-    bounds1 = (cpoint1[0]-size, cpoint1[1]+size, cpoint1[0]+size, cpoint1[1]-size ) # x+ shifted image
-    bounds2 = (cpoint2[0]-size, cpoint2[1]+size, cpoint2[0]+size, cpoint2[1]-size ) # x- shifted image
-    bounds3 = (cpoint3[0]-size, cpoint3[1]+size, cpoint3[0]+size, cpoint3[1]-size ) # y+ shifted image
-    bounds4 = (cpoint4[0]-size, cpoint4[1]+size, cpoint4[0]+size, cpoint4[1]-size ) # y- shifted image
-    
-    #---------------------------------------------------
-    renderimage(bounds0, mapfile, lon, lat,"0", merc)
-    renderimage(bounds1, mapfile, lon, lat,"1", merc)
-    renderimage(bounds2, mapfile, lon, lat,"2", merc)
-    renderimage(bounds3, mapfile, lon, lat,"3", merc)
-    renderimage(bounds4, mapfile, lon, lat,"4", merc)
-  
-    # To rotate the o rotate the map to any angle (including south up!!) and the text is rendered correctly! You don't have to change the projections of your input vectors. 
-    # Simply tweak the mapnik generate_image.py script like this:
-    # merc = mapnik.Projection('+proj=tpeqd +lat_1=35 +lat_2=35 +lon_1=-80 +lon_2=-122 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs')
-    # Rotated images 45, 90 , 135, 180, 225, 270
-    for k in range(1 , 7) :
-        teta = k * 45
-        mercrot = mapnik.Projection('+proj=aeqd +ellps=WGS84 +lat_0=90 +lon_0='+str(teta))
-        print('+proj=aeqd +ellps=WGS84 +lat_0=90 +lon_0='+str(teta))
-        renderimage(bounds0, mapfile,lon, lat,str(4+k), mercrot)
-    
+def render_locations(layers, locations, size, writer):
+
+    if not os.path.isdir(save_dir):
+        print("Directory no exists, exit...")
+        exit()     
+    ntiles = 0
+    label = 0
+    total_locations = len(locations)
+    total_tiles = 21 * total_locations * len(layers)
+    for location in locations:
+        ntiles+= 21*12
+        label += 1
+        print("Rendering location " + str(label) + "/" + str(total_locations))
+        render_location(label, layers, location, size, writer)
+        print("Images rendered and saved: " + str(ntiles) + "/" + str(total_tiles))
+    print("Job done ...")
+
 if __name__ == "__main__":
-    try:
-        mapfile = os.environ['MAPNIK_MAP_FILE']
-    except KeyError:
-        mapfile = "/map_data/bs_osm.xml"
+    layers = ['complete','amenity', 'barriers','bridge','buildings','landcover','landuse','natural','others','roads','text','water']
+    size = 0.0005
+    road_nodes = "/map_data/road_nodes.pkl"
+    save_dir = "/images/roads_tfrecords/" 
     
-    shift = 0.0005
-    step = 0.07
-    size = 0.001
-    #Bristol
-    #main_box = (-2.925299 , 51.336877 , -2.276272, 51.591575 ) #'extent':'-325784.36424912,5743147.85822298,-253460.12347616,5714795.00655692',
-    main_box = (-2.714996 , 51.405203 , -2.436218, 51.537367 ) #'extent':'-325784.36424912,5743147.85822298,-253460.12347616,5714795.00655692',
-    delta_lon = main_box[2]-main_box[0]
-    delta_lat = main_box[3]-main_box[1]
-    lon_init = main_box[0] + size
-    lon = lon_init
-    i = 0
-    lat_init = main_box[1] + size
-    lat = lat_init
-    while lon < main_box[2]:
-        lon = lon_init + i * step 
-        i = i + 1
-        j = 0
-        lat = lat_init
-        print(i)
-        while lat < main_box[3]:
-            lat = lat_init + j * step        
-            j = j + 1
-            cpoint = [lon, lat]
-            print(cpoint)
-            render_images(cpoint,shift,mapfile,lon,lat)
+    datasets = ["train", "validation", "test"]
+    process = {"train": True, "validation": False, "test": False}
+    porcentages = [[0,0.0001], [0.02,0.03], [0.03,0.0301]] #in %  
+    
+    with open(road_nodes, 'rb') as f:
+        locations = pickle.load(f)
+    print("{} Pointes were found".format(len(locations)))
+
+    # Divide the dataset and render
+    for dataset in datasets:
+        if process[dataset] == True:
+            print("Creating tfrecords for {} dataset encoding with cv2 and tf".format(dataset))
+            filename = save_dir + '/' + dataset + '_locations.tfrecords'
+            dataset_init = int(porcentages[datasets.index(dataset)][0]*len(locations))
+            dataset_fin  = int(porcentages[datasets.index(dataset)][1]*len(locations))
+            locations_to_render = locations[dataset_init:dataset_fin]
+            print("Num of locations to render: " + str(len(locations_to_render)))
+            print("Num of tiles to render: " + str(len(locations_to_render)* len(layers) * 21))
+            writer = tf.python_io.TFRecordWriter(filename)
+            render_locations(layers, locations_to_render, size, writer)
+            writer.close()
+            sys.stdout.flush()
+        else:
+            print("Nothin to process for the dataset " + dataset)
             
+
+                
+
             
     
 
