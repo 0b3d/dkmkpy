@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Map srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" background-color="rgb(242,239,233)" base="/map_data/styles" maximum-extent="-20037508.34,-20037508.34,20037508.34,20037508.34">
+    <Parameters>
+        <Parameter name="bounds" type="string">-180,-85.05112877980659,180,85.05112877980659</Parameter>
+        <Parameter name="center" type="string">0,0,4</Parameter>
+        <Parameter name="description" type="string">A faithful reimplementation of the standard OpenStreetMap style</Parameter>
+        <Parameter name="format" type="string">png</Parameter>
+        <Parameter name="maxzoom" type="string">22</Parameter>
+        <Parameter name="metatile" type="string">2</Parameter>
+        <Parameter name="minzoom" type="string">0</Parameter>
+        <Parameter name="name" type="string">OpenStreetMap Carto</Parameter>
+        <Parameter name="scale" type="string">1</Parameter>
+    </Parameters>
+    <Style name="buildings" filter-mode="first">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(217,208,201)" clip="false"/>
+            <LineSymbolizer stroke="rgb(185,169,156)" stroke-width="0.75" clip="false"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(209,198,189)" clip="false"/>
+        </Rule>
+    </Style>
+    <Style name="buildings-major" filter-mode="first">
+        <Rule>
+            <Filter>([amenity]=&apos;place_of_worship&apos;)</Filter>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(175,156,141)" clip="false"/>
+            <LineSymbolizer stroke="rgb(111,92,78)" stroke-width="0.75" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([amenity]=&apos;place_of_worship&apos;)</Filter>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(175,156,141)" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>(([aeroway]=&apos;terminal&apos;) and ([amenity]=&apos;place_of_worship&apos;))</Filter>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(166,77,255)" stroke-width="0.75" clip="false"/>
+            <PolygonSymbolizer fill="rgb(175,156,141)" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>(([aeroway]=&apos;terminal&apos;) and ([amenity]=&apos;place_of_worship&apos;))</Filter>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(175,156,141)" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aeroway]=&apos;terminal&apos;)</Filter>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(204,153,255)" clip="false"/>
+            <LineSymbolizer stroke="rgb(166,77,255)" stroke-width="0.75" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aeroway]=&apos;terminal&apos;)</Filter>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(204,153,255)" clip="false"/>
+        </Rule>
+    </Style>
+    <Style name="builtup" filter-mode="first">
+        <Rule>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <MaxScaleDenominator>3000000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(221,221,221)"/>
+        </Rule>
+    </Style>
+    <Style name="necountries" filter-mode="first">
+        <Rule>
+            <MinScaleDenominator>50000000</MinScaleDenominator>
+            <MaxScaleDenominator>100000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.4"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>100000000</MinScaleDenominator>
+            <MaxScaleDenominator>200000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.3"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>200000000</MinScaleDenominator>
+            <MaxScaleDenominator>500000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.2"/>
+        </Rule>
+    </Style>
+    <Style name="ocean" filter-mode="first">
+        <Rule>
+            <PolygonSymbolizer fill="rgb(181,208,208)"/>
+        </Rule>
+    </Style>
+    <Style name="ocean-lz" filter-mode="first">
+        <Rule>
+            <PolygonSymbolizer fill="rgb(181,208,208)"/>
+        </Rule>
+    </Style>
+    <Layer name="ocean-lz" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" minzoom="750000">
+        <StyleName>ocean-lz</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="ocean" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="750000">
+        <StyleName>ocean</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/water-polygons-split-3857/water_polygons.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="builtup" srs="+proj=merc +datum=WGS84 +over" minzoom="750000" maxzoom="3000000">
+        <StyleName>builtup</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/world_boundaries/builtup_area.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="necountries" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs" minzoom="50000000" maxzoom="500000000">
+        <StyleName>necountries</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="buildings" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="200000">
+        <StyleName>buildings</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way,
+    building
+  FROM planet_osm_polygon
+  WHERE building IS NOT NULL
+    AND building != &apos;no&apos;
+    AND way_area &gt; 0.01*!pixel_width!::real*!pixel_height!::real
+  ORDER BY z_order, way_area DESC
+) AS buildings</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="buildings-major" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="200000">
+        <StyleName>buildings-major</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way,
+    building,
+    amenity,
+    aeroway
+  FROM planet_osm_polygon
+  WHERE building IS NOT NULL
+    AND building != &apos;no&apos;
+    AND (aeroway = &apos;terminal&apos; OR amenity = &apos;place_of_worship&apos;)
+    AND way_area &gt; 0.01*!pixel_width!::real*!pixel_height!::real
+  ORDER BY z_order, way_area DESC)
+AS buildings_major</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+</Map>

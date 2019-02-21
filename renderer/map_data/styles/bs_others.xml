@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Map srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" background-color="rgb(242,239,233)" base="/map_data/styles" maximum-extent="-20037508.34,-20037508.34,20037508.34,20037508.34">
+    <Parameters>
+        <Parameter name="bounds" type="string">-180,-85.05112877980659,180,85.05112877980659</Parameter>
+        <Parameter name="center" type="string">0,0,4</Parameter>
+        <Parameter name="description" type="string">A faithful reimplementation of the standard OpenStreetMap style</Parameter>
+        <Parameter name="format" type="string">png</Parameter>
+        <Parameter name="maxzoom" type="string">22</Parameter>
+        <Parameter name="metatile" type="string">2</Parameter>
+        <Parameter name="minzoom" type="string">0</Parameter>
+        <Parameter name="name" type="string">OpenStreetMap Carto</Parameter>
+        <Parameter name="scale" type="string">1</Parameter>
+    </Parameters>
+    <Style name="admin-high-zoom" filter-mode="first" opacity="0.5" comp-op="darken">
+        <Rule>
+            <Filter>([admin_level]=&apos;9&apos;)</Filter>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="2" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="2" stroke-linejoin="bevel" stroke-dasharray="2, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;10&apos;)</Filter>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="2" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="2" stroke-linejoin="bevel" stroke-dasharray="2, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;8&apos;)</Filter>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="1.5" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="1.5" stroke-linejoin="bevel" stroke-dasharray="5, 2" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;7&apos;)</Filter>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="1.5" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="1.5" stroke-linejoin="bevel" stroke-dasharray="5, 2" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;6&apos;)</Filter>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="2" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="2" stroke-linejoin="bevel" stroke-dasharray="6, 3, 2, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;5&apos;)</Filter>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="2" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="2" stroke-linejoin="bevel" stroke-dasharray="6, 3, 2, 3, 2, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="3" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="3" stroke-linejoin="bevel" stroke-dasharray="4, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;3&apos;)</Filter>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="4" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="4" stroke-linejoin="bevel" stroke-dasharray="4, 2" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;2&apos;)</Filter>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="6" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="6" stroke-linejoin="bevel"/>
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+        </Rule>
+    </Style>
+    <Style name="admin-low-zoom" filter-mode="first" opacity="0.4000000059604645" comp-op="darken">
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MinScaleDenominator>400000</MinScaleDenominator>
+            <MaxScaleDenominator>750000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="2.5" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="2.5" stroke-linejoin="bevel" stroke-dasharray="4, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <MaxScaleDenominator>1500000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="1.8" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="1.8" stroke-linejoin="bevel" stroke-dasharray="4, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MinScaleDenominator>1500000</MinScaleDenominator>
+            <MaxScaleDenominator>6500000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-linejoin="bevel" stroke-dasharray="4, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MinScaleDenominator>6500000</MinScaleDenominator>
+            <MaxScaleDenominator>12500000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="0.8" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.8" stroke-linejoin="bevel" stroke-dasharray="4, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MinScaleDenominator>12500000</MinScaleDenominator>
+            <MaxScaleDenominator>25000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="0.6" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.6" stroke-linejoin="bevel" stroke-dasharray="4, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MinScaleDenominator>25000000</MinScaleDenominator>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="0.4" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.4" stroke-linejoin="bevel" stroke-dasharray="4, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MinScaleDenominator>50000000</MinScaleDenominator>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;3&apos;)</Filter>
+            <MinScaleDenominator>400000</MinScaleDenominator>
+            <MaxScaleDenominator>750000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="4" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="4" stroke-linejoin="bevel" stroke-dasharray="4, 2" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;3&apos;)</Filter>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <MaxScaleDenominator>6500000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="1.2" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="1.2" stroke-linejoin="bevel"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;3&apos;)</Filter>
+            <MinScaleDenominator>6500000</MinScaleDenominator>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="0.6" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.6" stroke-linejoin="bevel"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;3&apos;)</Filter>
+            <MinScaleDenominator>50000000</MinScaleDenominator>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;2&apos;)</Filter>
+            <MinScaleDenominator>400000</MinScaleDenominator>
+            <MaxScaleDenominator>750000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="6" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="6" stroke-linejoin="bevel"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;2&apos;)</Filter>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <MaxScaleDenominator>6500000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="2" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="2" stroke-linejoin="bevel"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;2&apos;)</Filter>
+            <MinScaleDenominator>6500000</MinScaleDenominator>
+            <MaxScaleDenominator>12500000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="1.8" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="1.8" stroke-linejoin="bevel"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;2&apos;)</Filter>
+            <MinScaleDenominator>12500000</MinScaleDenominator>
+            <MaxScaleDenominator>25000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="1.5" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="1.5" stroke-linejoin="bevel"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;2&apos;)</Filter>
+            <MinScaleDenominator>25000000</MinScaleDenominator>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="1.2" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="1.2" stroke-linejoin="bevel"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;2&apos;)</Filter>
+            <MinScaleDenominator>50000000</MinScaleDenominator>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>400000</MinScaleDenominator>
+        </Rule>
+    </Style>
+    <Style name="admin-mid-zoom" filter-mode="first" opacity="0.5" comp-op="darken">
+        <Rule>
+            <Filter>([admin_level]=&apos;7&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="1.5" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="1.5" stroke-linejoin="bevel" stroke-dasharray="5, 2" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;7&apos;)</Filter>
+            <MinScaleDenominator>200000</MinScaleDenominator>
+            <MaxScaleDenominator>400000</MaxScaleDenominator>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;8&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="1.5" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="1.5" stroke-linejoin="bevel" stroke-dasharray="5, 2" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;8&apos;)</Filter>
+            <MinScaleDenominator>200000</MinScaleDenominator>
+            <MaxScaleDenominator>400000</MaxScaleDenominator>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;6&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>400000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="2" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="2" stroke-linejoin="bevel" stroke-dasharray="6, 3, 2, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;5&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>400000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="2" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="2" stroke-linejoin="bevel" stroke-dasharray="6, 3, 2, 3, 2, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="3" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="3" stroke-linejoin="bevel" stroke-dasharray="4, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;4&apos;)</Filter>
+            <MinScaleDenominator>200000</MinScaleDenominator>
+            <MaxScaleDenominator>400000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="2.5" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="2.5" stroke-linejoin="bevel" stroke-dasharray="4, 3" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;3&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>400000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="4" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="4" stroke-linejoin="bevel" stroke-dasharray="4, 2" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([admin_level]=&apos;2&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>400000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(255,255,255)" stroke-width="6" stroke-linejoin="bevel"/>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="6" stroke-linejoin="bevel"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>400000</MaxScaleDenominator>
+        </Rule>
+    </Style>
+    <Style name="aerialways" filter-mode="first">
+        <Rule>
+            <Filter>([aerialway]=&apos;j-bar&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(128,128,128)" stroke-linejoin="round" stroke-linecap="round"/>
+            <LineSymbolizer stroke-width="4" stroke-linejoin="round" stroke-dasharray="1, 30" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aerialway]=&apos;rope_tow&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(128,128,128)" stroke-linejoin="round" stroke-linecap="round"/>
+            <LineSymbolizer stroke-width="4" stroke-linejoin="round" stroke-dasharray="1, 30" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aerialway]=&apos;platter&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(128,128,128)" stroke-linejoin="round" stroke-linecap="round"/>
+            <LineSymbolizer stroke-width="4" stroke-linejoin="round" stroke-dasharray="1, 30" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aerialway]=&apos;chair_lift&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(128,128,128)" stroke-linejoin="round" stroke-linecap="round"/>
+            <LineSymbolizer stroke-width="4" stroke-linejoin="round" stroke-dasharray="1, 30" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aerialway]=&apos;drag_lift&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(128,128,128)" stroke-linejoin="round" stroke-linecap="round"/>
+            <LineSymbolizer stroke-width="4" stroke-linejoin="round" stroke-dasharray="1, 30" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aerialway]=&apos;t-bar&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(128,128,128)" stroke-linejoin="round" stroke-linecap="round"/>
+            <LineSymbolizer stroke-width="4" stroke-linejoin="round" stroke-dasharray="1, 30" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aerialway]=&apos;goods&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(128,128,128)" stroke-linejoin="round" stroke-linecap="round"/>
+            <LineSymbolizer stroke="rgb(112,112,112)" stroke-width="3.5" stroke-linejoin="round" stroke-dasharray="6, 25" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aerialway]=&apos;gondola&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(128,128,128)" stroke-linejoin="round" stroke-linecap="round"/>
+            <LineSymbolizer stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="0.4, 13" clip="false"/>
+        </Rule>
+        <Rule>
+            <Filter>([aerialway]=&apos;cable_car&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(128,128,128)" stroke-linejoin="round" stroke-linecap="round"/>
+            <LineSymbolizer stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="0.4, 13" clip="false"/>
+        </Rule>
+    </Style>
+    <Style name="builtup" filter-mode="first">
+        <Rule>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <MaxScaleDenominator>3000000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(221,221,221)"/>
+        </Rule>
+    </Style>
+    <Style name="ferry-routes" filter-mode="first">
+        <Rule>
+            <MaxScaleDenominator>400000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(181,208,208)"/>
+            <LineSymbolizer stroke="rgb(102,102,255)" stroke-width="0.8" stroke-dasharray="6, 6"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>400000</MinScaleDenominator>
+            <MaxScaleDenominator>6500000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(181,208,208)"/>
+            <LineSymbolizer stroke="rgb(102,102,255)" stroke-width="0.4" stroke-dasharray="4, 4"/>
+        </Rule>
+    </Style>
+    <Style name="interpolation" filter-mode="first">
+        <Rule>
+            <MaxScaleDenominator>5000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(136,136,136)" stroke-dasharray="2, 4"/>
+        </Rule>
+    </Style>
+    <Style name="necountries" filter-mode="first">
+        <Rule>
+            <MinScaleDenominator>50000000</MinScaleDenominator>
+            <MaxScaleDenominator>100000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.4"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>100000000</MinScaleDenominator>
+            <MaxScaleDenominator>200000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.3"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>200000000</MinScaleDenominator>
+            <MaxScaleDenominator>500000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.2"/>
+        </Rule>
+    </Style>
+    <Style name="ocean" filter-mode="first">
+        <Rule>
+            <PolygonSymbolizer fill="rgb(181,208,208)"/>
+        </Rule>
+    </Style>
+    <Style name="ocean-lz" filter-mode="first">
+        <Rule>
+            <PolygonSymbolizer fill="rgb(181,208,208)"/>
+        </Rule>
+    </Style>
+    <Style name="piers-line" filter-mode="first">
+        <Rule>
+            <Filter>([man_made]=&apos;breakwater&apos;)</Filter>
+            <MaxScaleDenominator>12500</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(170,170,170)" stroke-width="4"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;breakwater&apos;)</Filter>
+            <MinScaleDenominator>12500</MinScaleDenominator>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(170,170,170)" stroke-width="2"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;breakwater&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(170,170,170)"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;groyne&apos;)</Filter>
+            <MaxScaleDenominator>12500</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(170,170,170)" stroke-width="4"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;groyne&apos;)</Filter>
+            <MinScaleDenominator>12500</MinScaleDenominator>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(170,170,170)" stroke-width="2"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;groyne&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(170,170,170)"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;pier&apos;)</Filter>
+            <MaxScaleDenominator>12500</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(242,239,233)" stroke-width="7"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;pier&apos;)</Filter>
+            <MinScaleDenominator>12500</MinScaleDenominator>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(242,239,233)" stroke-width="3"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;pier&apos;)</Filter>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(242,239,233)" stroke-width="1.5"/>
+        </Rule>
+    </Style>
+    <Style name="piers-poly" filter-mode="first">
+        <Rule>
+            <Filter>([man_made]=&apos;breakwater&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(170,170,170)"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;groyne&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(170,170,170)"/>
+        </Rule>
+        <Rule>
+            <Filter>([man_made]=&apos;pier&apos;)</Filter>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(242,239,233)"/>
+        </Rule>
+    </Style>
+    <Style name="power-line" filter-mode="first">
+        <Rule>
+            <MaxScaleDenominator>2500</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(136,136,136)" stroke-width="1.5"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>2500</MinScaleDenominator>
+            <MaxScaleDenominator>12500</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(136,136,136)" stroke-width="1.3"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>12500</MinScaleDenominator>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(136,136,136)" stroke-width="0.9"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(136,136,136)" stroke-width="0.8"/>
+        </Rule>
+    </Style>
+    <Style name="power-minorline" filter-mode="first">
+        <Rule>
+            <MaxScaleDenominator>12500</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(136,136,136)" stroke-width="0.5"/>
+        </Rule>
+    </Style>
+    <Style name="power-poles" filter-mode="first">
+        <Rule>
+            <MaxScaleDenominator>12500</MaxScaleDenominator>
+            <MarkersSymbolizer file="/map_data/styles/symbols/square.svg" fill=" rgb(146,143,143)" width="3"/>
+        </Rule>
+    </Style>
+    <Style name="power-towers" filter-mode="first">
+        <Rule>
+            <MaxScaleDenominator>5000</MaxScaleDenominator>
+            <MarkersSymbolizer file="/map_data/styles/symbols/power_tower.svg" width="7"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>5000</MinScaleDenominator>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <MarkersSymbolizer file="/map_data/styles/symbols/power_tower.svg" width="5"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MarkersSymbolizer file="/map_data/styles/symbols/power_tower_small.svg" width="3"/>
+        </Rule>
+    </Style>
+    <Layer name="ocean-lz" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" minzoom="750000">
+        <StyleName>ocean-lz</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="ocean" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="750000">
+        <StyleName>ocean</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/water-polygons-split-3857/water_polygons.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="builtup" srs="+proj=merc +datum=WGS84 +over" minzoom="750000" maxzoom="3000000">
+        <StyleName>builtup</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/world_boundaries/builtup_area.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="necountries" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs" minzoom="50000000" maxzoom="500000000">
+        <StyleName>necountries</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="piers-poly" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="200000">
+        <StyleName>piers-poly</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way, man_made
+  FROM planet_osm_polygon
+  WHERE man_made IN (&apos;pier&apos;, &apos;breakwater&apos;, &apos;groyne&apos;)
+) AS piers_poly</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="piers-line" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="200000">
+        <StyleName>piers-line</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way, man_made
+  FROM planet_osm_line
+  WHERE man_made IN (&apos;pier&apos;, &apos;breakwater&apos;, &apos;groyne&apos;)
+) AS piers_line</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="ferry-routes" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="6500000">
+        <StyleName>ferry-routes</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way
+  FROM planet_osm_line
+  WHERE route = &apos;ferry&apos;
+) AS ferry_routes</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="aerialways" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="200000">
+        <StyleName>aerialways</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way,
+    aerialway
+  FROM planet_osm_line
+  WHERE aerialway IS NOT NULL
+) AS aerialways</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="admin-low-zoom" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" minzoom="400000">
+        <StyleName>admin-low-zoom</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way,
+    admin_level
+  FROM planet_osm_roads
+  WHERE boundary = &apos;administrative&apos;
+    AND admin_level IN (&apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;)
+    AND osm_id &lt; 0
+  ORDER BY admin_level DESC
+) AS admin_low_zoom</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="admin-mid-zoom" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" minzoom="100000" maxzoom="400000">
+        <StyleName>admin-mid-zoom</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way,
+    admin_level
+  FROM planet_osm_roads
+  WHERE boundary = &apos;administrative&apos;
+    AND admin_level IN (&apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;)
+    AND osm_id &lt; 0
+  ORDER BY admin_level DESC
+) AS admin_mid_zoom</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="admin-high-zoom" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="100000">
+        <StyleName>admin-high-zoom</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way,
+    admin_level
+  FROM planet_osm_roads
+  WHERE boundary = &apos;administrative&apos;
+    AND admin_level IN (&apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;, &apos;9&apos;, &apos;10&apos;)
+    AND osm_id &lt; 0
+  ORDER BY admin_level::integer DESC -- With 10 as a valid value, we need to do a numeric ordering, not a text ordering
+) AS admin_high_zoom</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="power-minorline" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="12500">
+        <StyleName>power-minorline</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way
+  FROM planet_osm_line
+  WHERE power = &apos;minor_line&apos;
+) AS power_minorline</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="power-line" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="50000">
+        <StyleName>power-line</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way
+  FROM planet_osm_line
+  WHERE power = &apos;line&apos;
+) AS power_line</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="power-towers" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="50000">
+        <StyleName>power-towers</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way
+  FROM planet_osm_point
+  WHERE power = &apos;tower&apos;
+) AS power_towers</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="power-poles" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="12500">
+        <StyleName>power-poles</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way
+  FROM planet_osm_point
+  WHERE power = &apos;pole&apos;
+) AS power_poles</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="interpolation" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="5000">
+        <StyleName>interpolation</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way
+  FROM planet_osm_line
+  WHERE &quot;addr:interpolation&quot; IS NOT NULL
+) AS interpolation</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+</Map>

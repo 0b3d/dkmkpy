@@ -1,0 +1,27 @@
+#Cambiar usuario
+su postgres
+#Connect to a database
+\c gis
+#List tables in database
+\dt
+
+#-----------------Tiles--------------
+A good introduction about tiles and name system is
+https://gis.stackexchange.com/questions/252777/tile-names-coordinates-relationship
+http://www.maptiler.org/google-maps-coordinates-tile-bounds-projection/
+http://www.liedman.net/tiled-maps/
+
+public | planet_osm_nodes_pkey            | index | postgres | planet_osm_nodes
+
+pgadmin
+
+sudo docker run --name some-pgadmin4 \
+           --link postgis:postgres \
+           -p 5050:5050 \
+           -d fenglc/pgadmin4
+           
+           
+           
+      docker run --rm --name pgadmin --link postgres:postgres -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY mdouchement/pgadmin3:1.20.0
+      docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:latest
+    

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Map[]>
+<Map srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" background-color="#f2efe9" maximum-extent="-20037508.34,-20037508.34,20037508.34,20037508.34">
+
+<Parameters>
+  <Parameter name="scale">1</Parameter>
+  <Parameter name="center">0,0,4</Parameter>
+  <Parameter name="format">png</Parameter>
+  <Parameter name="metatile">2</Parameter>
+  <Parameter name="bounds">-180,-85.05112877980659,180,85.05112877980659</Parameter>
+  <Parameter name="name"><![CDATA[OpenStreetMap Carto]]></Parameter>
+  <Parameter name="minzoom">0</Parameter>
+  <Parameter name="maxzoom">22</Parameter>
+  <Parameter name="description"><![CDATA[A faithful reimplementation of the standard OpenStreetMap style]]></Parameter>
+</Parameters>
+
+
+<Style name="ocean-lz" filter-mode="first">
+  <Rule>
+    <PolygonSymbolizer fill="#b5d0d0" />
+  </Rule>
+</Style>
+<Layer name="ocean-lz"
+  minzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>ocean-lz</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="ocean" filter-mode="first">
+  <Rule>
+    <PolygonSymbolizer fill="#b5d0d0" />
+  </Rule>
+</Style>
+<Layer name="ocean"
+  maxzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>ocean</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/water-polygons-split-3857/water_polygons.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="builtup" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <PolygonSymbolizer fill="#dddddd" />
+  </Rule>
+</Style>
+<Layer name="builtup"
+  minzoom="750000"
+  maxzoom="3000000"
+  srs="+proj=merc +datum=WGS84 +over">
+    <StyleName>builtup</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/world_boundaries/builtup_area.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="necountries" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>100000000</MaxScaleDenominator>
+    <MinScaleDenominator>50000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.4" stroke="#ac46ac" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000000</MaxScaleDenominator>
+    <MinScaleDenominator>100000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.3" stroke="#ac46ac" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>500000000</MaxScaleDenominator>
+    <MinScaleDenominator>200000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.2" stroke="#ac46ac" />
+  </Rule>
+</Style>
+<Layer name="necountries"
+  minzoom="50000000"
+  maxzoom="500000000"
+  srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+    <StyleName>necountries</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="buildings" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <PolygonSymbolizer fill="#d9d0c9" clip="false" />
+    <LineSymbolizer stroke="#b9a99c" stroke-width="0.75" clip="false" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <PolygonSymbolizer fill="#d1c6bd" clip="false" />
+  </Rule>
+</Style>
+<Layer name="buildings"
+  maxzoom="200000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>buildings</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way,
+    building
+  FROM planet_osm_polygon
+  WHERE building IS NOT NULL
+    AND building != 'no'
+    AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real
+  ORDER BY z_order, way_area DESC
+) AS buildings]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="buildings-major" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([amenity] = 'place_of_worship')</Filter>
+    <PolygonSymbolizer fill="#af9c8d" clip="false" />
+    <LineSymbolizer stroke-width="0.75" clip="false" stroke="#6f5c4e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([amenity] = 'place_of_worship')</Filter>
+    <PolygonSymbolizer fill="#af9c8d" clip="false" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([aeroway] = 'terminal') and ([amenity] = 'place_of_worship')</Filter>
+    <LineSymbolizer stroke-width="0.75" clip="false" stroke="#a64dff" />
+    <PolygonSymbolizer fill="#af9c8d" clip="false" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([aeroway] = 'terminal') and ([amenity] = 'place_of_worship')</Filter>
+    <PolygonSymbolizer fill="#af9c8d" clip="false" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([aeroway] = 'terminal')</Filter>
+    <PolygonSymbolizer fill="#cc99ff" clip="false" />
+    <LineSymbolizer stroke-width="0.75" clip="false" stroke="#a64dff" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([aeroway] = 'terminal')</Filter>
+    <PolygonSymbolizer fill="#cc99ff" clip="false" />
+  </Rule>
+</Style>
+<Layer name="buildings-major"
+  maxzoom="200000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>buildings-major</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way,
+    building,
+    amenity,
+    aeroway
+  FROM planet_osm_polygon
+  WHERE building IS NOT NULL
+    AND building != 'no'
+    AND (aeroway = 'terminal' OR amenity = 'place_of_worship')
+    AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real
+  ORDER BY z_order, way_area DESC)
+AS buildings_major]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+</Map>

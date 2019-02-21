@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Map srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" background-color="rgb(242,239,233)" base="/map_data/styles" maximum-extent="-20037508.34,-20037508.34,20037508.34,20037508.34">
+    <Parameters>
+        <Parameter name="bounds" type="string">-180,-85.05112877980659,180,85.05112877980659</Parameter>
+        <Parameter name="center" type="string">0,0,4</Parameter>
+        <Parameter name="description" type="string">A faithful reimplementation of the standard OpenStreetMap style</Parameter>
+        <Parameter name="format" type="string">png</Parameter>
+        <Parameter name="maxzoom" type="string">22</Parameter>
+        <Parameter name="metatile" type="string">2</Parameter>
+        <Parameter name="minzoom" type="string">0</Parameter>
+        <Parameter name="name" type="string">OpenStreetMap Carto</Parameter>
+        <Parameter name="scale" type="string">1</Parameter>
+    </Parameters>
+    <Style name="builtup" filter-mode="first">
+        <Rule>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <MaxScaleDenominator>3000000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(221,221,221)"/>
+        </Rule>
+    </Style>
+    <Style name="cliffs" filter-mode="first">
+        <Rule>
+            <Filter>([natural]=&apos;cliff&apos;)</Filter>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LinePatternSymbolizer file="/map_data/styles/symbols/cliff2.png"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;cliff&apos;)</Filter>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <LinePatternSymbolizer file="/map_data/styles/symbols/cliff.png"/>
+        </Rule>
+    </Style>
+    <Style name="cliffs-man_made" filter-mode="first">
+        <Rule>
+            <Filter>([man_made]=&apos;embankment&apos;)</Filter>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LinePatternSymbolizer file="/map_data/styles/symbols/embankment.png"/>
+        </Rule>
+    </Style>
+    <Style name="nature-reserve-boundaries" filter-mode="first">
+        <Rule>
+            <Filter>([way_pixels]&gt;100)</Filter>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="2" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" offset="-1"/>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="6" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" offset="-3"/>
+        </Rule>
+        <Rule>
+            <Filter>([way_pixels]&gt;100)</Filter>
+            <MinScaleDenominator>50000</MinScaleDenominator>
+            <MaxScaleDenominator>750000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="2" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" offset="-1"/>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="4" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" offset="-2"/>
+        </Rule>
+        <Rule>
+            <Filter>([way_pixels]&gt;100)</Filter>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <MaxScaleDenominator>6500000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" offset="-0.5"/>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="2" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" offset="-1"/>
+        </Rule>
+    </Style>
+    <Style name="nature-reserve-boundaries-fill" filter-mode="first" opacity="0.05000000074505806">
+        <Rule>
+            <Filter>([way_pixels]&gt;100)</Filter>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <MaxScaleDenominator>6500000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="rgb(0,128,0)"/>
+        </Rule>
+    </Style>
+    <Style name="necountries" filter-mode="first">
+        <Rule>
+            <MinScaleDenominator>50000000</MinScaleDenominator>
+            <MaxScaleDenominator>100000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.4"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>100000000</MinScaleDenominator>
+            <MaxScaleDenominator>200000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.3"/>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>200000000</MinScaleDenominator>
+            <MaxScaleDenominator>500000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(172,70,172)" stroke-width="0.2"/>
+        </Rule>
+    </Style>
+    <Style name="ocean" filter-mode="first">
+        <Rule>
+            <PolygonSymbolizer fill="rgb(181,208,208)"/>
+        </Rule>
+    </Style>
+    <Style name="ocean-lz" filter-mode="first">
+        <Rule>
+            <PolygonSymbolizer fill="rgb(181,208,208)"/>
+        </Rule>
+    </Style>
+    <Style name="trees-canopy" filter-mode="first" opacity="0.300000011920929">
+        <Rule>
+            <Filter>([natural]=&apos;tree&apos;)</Filter>
+            <MaxScaleDenominator>750</MaxScaleDenominator>
+            <MarkersSymbolizer file="shape://ellipse" allow-overlap="true" ignore-placement="true" fill=" rgb(0,128,0)" width="30" height="30" stroke-width="0"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree&apos;)</Filter>
+            <MinScaleDenominator>750</MinScaleDenominator>
+            <MaxScaleDenominator>1500</MaxScaleDenominator>
+            <MarkersSymbolizer file="shape://ellipse" allow-overlap="true" ignore-placement="true" fill=" rgb(0,128,0)" width="15" height="15" stroke-width="0"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree&apos;)</Filter>
+            <MinScaleDenominator>1500</MinScaleDenominator>
+            <MaxScaleDenominator>2500</MaxScaleDenominator>
+            <MarkersSymbolizer file="shape://ellipse" allow-overlap="true" ignore-placement="true" fill=" rgb(0,128,0)" width="10" height="10" stroke-width="0"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree&apos;)</Filter>
+            <MinScaleDenominator>2500</MinScaleDenominator>
+            <MaxScaleDenominator>5000</MaxScaleDenominator>
+            <MarkersSymbolizer file="shape://ellipse" allow-overlap="true" ignore-placement="true" fill=" rgb(0,128,0)" width="5" height="5" stroke-width="0"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree&apos;)</Filter>
+            <MinScaleDenominator>5000</MinScaleDenominator>
+            <MaxScaleDenominator>12500</MaxScaleDenominator>
+            <MarkersSymbolizer file="shape://ellipse" allow-overlap="true" ignore-placement="true" fill=" rgb(0,128,0)" width="2.5" height="2.5" stroke-width="0"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree_row&apos;)</Filter>
+            <MaxScaleDenominator>750</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="30" stroke-linecap="round"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree_row&apos;)</Filter>
+            <MinScaleDenominator>750</MinScaleDenominator>
+            <MaxScaleDenominator>1500</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="15" stroke-linecap="round"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree_row&apos;)</Filter>
+            <MinScaleDenominator>1500</MinScaleDenominator>
+            <MaxScaleDenominator>2500</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="10" stroke-linecap="round"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree_row&apos;)</Filter>
+            <MinScaleDenominator>2500</MinScaleDenominator>
+            <MaxScaleDenominator>5000</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="5" stroke-linecap="round"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree_row&apos;)</Filter>
+            <MinScaleDenominator>5000</MinScaleDenominator>
+            <MaxScaleDenominator>12500</MaxScaleDenominator>
+            <LineSymbolizer stroke="rgb(0,128,0)" stroke-width="2.5" stroke-linecap="round"/>
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>12500</MaxScaleDenominator>
+        </Rule>
+    </Style>
+    <Style name="trees-trunk" filter-mode="first">
+        <Rule>
+            <Filter>([natural]=&apos;tree&apos;)</Filter>
+            <MaxScaleDenominator>750</MaxScaleDenominator>
+            <MarkersSymbolizer file="shape://ellipse" allow-overlap="true" ignore-placement="true" fill=" rgb(178,127,54)" width="6" height="6" stroke-width="0"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree&apos;)</Filter>
+            <MinScaleDenominator>750</MinScaleDenominator>
+            <MaxScaleDenominator>1500</MaxScaleDenominator>
+            <MarkersSymbolizer file="shape://ellipse" allow-overlap="true" ignore-placement="true" fill=" rgb(178,127,54)" width="3" height="3" stroke-width="0"/>
+        </Rule>
+        <Rule>
+            <Filter>([natural]=&apos;tree&apos;)</Filter>
+            <MinScaleDenominator>1500</MinScaleDenominator>
+            <MaxScaleDenominator>2500</MaxScaleDenominator>
+            <MarkersSymbolizer file="shape://ellipse" allow-overlap="true" ignore-placement="true" fill=" rgb(178,127,54)" width="2" height="2" stroke-width="0"/>
+        </Rule>
+    </Style>
+    <Layer name="ocean-lz" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" minzoom="750000">
+        <StyleName>ocean-lz</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="ocean" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="750000">
+        <StyleName>ocean</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/water-polygons-split-3857/water_polygons.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="builtup" srs="+proj=merc +datum=WGS84 +over" minzoom="750000" maxzoom="3000000">
+        <StyleName>builtup</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/world_boundaries/builtup_area.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="necountries" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs" minzoom="50000000" maxzoom="500000000">
+        <StyleName>necountries</StyleName>
+        <Datasource>
+            <Parameter name="file">/map_data/styles/data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="nature-reserve-boundaries" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="6500000">
+        <StyleName>nature-reserve-boundaries-fill</StyleName>
+        <StyleName>nature-reserve-boundaries</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way,
+    name,
+    boundary,
+    way_area/NULLIF(!pixel_width!::real*!pixel_height!::real,0) AS way_pixels
+  FROM planet_osm_polygon
+  WHERE (boundary = &apos;national_park&apos; OR leisure = &apos;nature_reserve&apos;)
+    AND building IS NULL
+    AND way_area &gt; 0.01*!pixel_width!::real*!pixel_height!::real
+) AS national_park_boundaries</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="cliffs" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="100000">
+        <StyleName>cliffs</StyleName>
+        <StyleName>cliffs-man_made</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way, &quot;natural&quot;, man_made
+  FROM planet_osm_line
+  WHERE &quot;natural&quot; = &apos;cliff&apos; OR man_made = &apos;embankment&apos;
+) AS cliffs</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="trees" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" maxzoom="12500">
+        <StyleName>trees-canopy</StyleName>
+        <StyleName>trees-trunk</StyleName>
+        <Datasource>
+            <Parameter name="dbname">gis</Parameter>
+            <Parameter name="extent">-20037508,-20037508,20037508,20037508</Parameter>
+            <Parameter name="geometry_field">way</Parameter>
+            <Parameter name="host">postgis</Parameter>
+            <Parameter name="key_field"/>
+            <Parameter name="password">postgres</Parameter>
+            <Parameter name="port">5432</Parameter>
+            <Parameter name="table">(SELECT
+    way, &quot;natural&quot;
+  FROM planet_osm_point
+  WHERE &quot;natural&quot; = &apos;tree&apos;
+UNION ALL
+SELECT
+    way, &quot;natural&quot;
+  FROM planet_osm_line
+  WHERE &quot;natural&quot; = &apos;tree_row&apos;
+) AS trees</Parameter>
+            <Parameter name="type">postgis</Parameter>
+            <Parameter name="user">postgres</Parameter>
+        </Datasource>
+    </Layer>
+</Map>

@@ -1,0 +1,3708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Map[]>
+<Map srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" background-color="#f2efe9" maximum-extent="-20037508.34,-20037508.34,20037508.34,20037508.34">
+
+<Parameters>
+  <Parameter name="scale">1</Parameter>
+  <Parameter name="center">0,0,4</Parameter>
+  <Parameter name="format">png</Parameter>
+  <Parameter name="metatile">2</Parameter>
+  <Parameter name="bounds">-180,-85.05112877980659,180,85.05112877980659</Parameter>
+  <Parameter name="name"><![CDATA[OpenStreetMap Carto]]></Parameter>
+  <Parameter name="minzoom">0</Parameter>
+  <Parameter name="maxzoom">22</Parameter>
+  <Parameter name="description"><![CDATA[A faithful reimplementation of the standard OpenStreetMap style]]></Parameter>
+</Parameters>
+
+
+<Style name="ocean-lz" filter-mode="first">
+  <Rule>
+    <PolygonSymbolizer fill="#b5d0d0" />
+  </Rule>
+</Style>
+<Layer name="ocean-lz"
+  minzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>ocean-lz</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="ocean" filter-mode="first">
+  <Rule>
+    <PolygonSymbolizer fill="#b5d0d0" />
+  </Rule>
+</Style>
+<Layer name="ocean"
+  maxzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>ocean</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/water-polygons-split-3857/water_polygons.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="builtup" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <PolygonSymbolizer fill="#dddddd" />
+  </Rule>
+</Style>
+<Layer name="builtup"
+  minzoom="750000"
+  maxzoom="3000000"
+  srs="+proj=merc +datum=WGS84 +over">
+    <StyleName>builtup</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/world_boundaries/builtup_area.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="necountries" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>100000000</MaxScaleDenominator>
+    <MinScaleDenominator>50000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.4" stroke="#ac46ac" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000000</MaxScaleDenominator>
+    <MinScaleDenominator>100000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.3" stroke="#ac46ac" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>500000000</MaxScaleDenominator>
+    <MinScaleDenominator>200000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.2" stroke="#ac46ac" />
+  </Rule>
+</Style>
+<Layer name="necountries"
+  minzoom="50000000"
+  maxzoom="500000000"
+  srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+    <StyleName>necountries</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="landcover-area-symbols-wood" filter-mode="first" opacity="0.4">
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([natural] = 'wood')</Filter>
+    <PolygonPatternSymbolizer file="symbols/forest.png" alignment="global" />
+  </Rule>
+</Style>
+<Style name="landcover-area-symbols" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'fine_gravel') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'fine_gravel') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'fine_gravel')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'pebblestone') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'pebblestone') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'pebblestone')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'pebblestone') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'pebblestone') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'pebblestone')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'shingle') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'shingle') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'shingle')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'shells') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'shells') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'shells')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'shells') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'shells') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'shells')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'stones') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'stones') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'stones')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'stones') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'stones') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'stones')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'shingle') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'shingle') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'shingle')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'fine_gravel') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'fine_gravel') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'fine_gravel')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'gravel') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'gravel') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'gravel')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'gravel') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'gravel') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'gravel')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'pebbles') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'pebbles') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'pebbles')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'pebbles') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'pebbles') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'pebbles')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach_coarse.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'sand') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'sand') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([surface] = 'sand')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'sand') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'sand') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([surface] = 'sand')</Filter>
+    <PolygonPatternSymbolizer file="symbols/beach.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'string_bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_bog.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'string_bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_bog.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'swamp')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_swamp.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'swamp')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'mangrove')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_mangrove.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'mangrove')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'reedbed')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_reed.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'reedbed')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'wet_meadow')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'wet_meadow')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'saltmarsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'saltmarsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'marsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'marsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'fen')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] = 'fen')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([natural] = 'shoal') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'string_bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_bog.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'string_bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_bog.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'swamp')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_swamp.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'swamp')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'mangrove')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_mangrove.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'mangrove')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'reedbed')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_reed.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'reedbed')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'wet_meadow')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'wet_meadow')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'saltmarsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'saltmarsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'marsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'marsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'fen')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] = 'fen')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([natural] = 'beach') and ([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'string_bog') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_bog.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'string_bog') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'string_bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_bog.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'string_bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'bog') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_bog.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'bog') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_bog.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'bog')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'swamp') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_swamp.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'swamp') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'swamp')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_swamp.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'swamp')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'mangrove') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_mangrove.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'mangrove') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'mangrove')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_mangrove.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'mangrove')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'reedbed') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_reed.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'reedbed') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'reedbed')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_reed.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'reedbed')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'wet_meadow') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'wet_meadow') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'wet_meadow')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'wet_meadow')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'saltmarsh') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'saltmarsh') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'saltmarsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'saltmarsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'marsh') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'marsh') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'marsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'marsh')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'fen') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'fen') and ([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([int_wetland] = 'fen')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland_marsh.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([int_wetland] = 'fen')</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([natural] = 'reef')</Filter>
+    <PolygonPatternSymbolizer file="symbols/reef.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([int_wetland] != null)</Filter>
+    <PolygonPatternSymbolizer file="symbols/wetland.png" alignment="global" />
+  </Rule>
+</Style>
+<Layer name="landcover-area-symbols"
+  maxzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>landcover-area-symbols</StyleName>
+    <StyleName>landcover-area-symbols-wood</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way, surface, 
+    COALESCE("natural", CASE WHEN landuse = 'forest' THEN 'wood' ELSE NULL END) AS "natural",
+    CASE WHEN "natural" IN ('marsh', 'mud') 
+        THEN "natural" 
+        ELSE CASE WHEN ("natural" = 'wetland' AND wetland IS NULL) 
+          THEN 'wetland' 
+          ELSE CASE WHEN ("natural" = 'wetland')
+            THEN wetland
+            ELSE NULL
+            END 
+        END
+      END AS int_wetland
+  FROM planet_osm_polygon
+  WHERE ("natural" IN ('marsh', 'mud', 'wetland', 'wood', 'beach', 'shoal', 'reef') OR landuse = 'forest')
+    AND building IS NULL
+    AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real
+  ORDER BY z_order, way_area DESC
+) AS landcover_area_symbols]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="landcover-low-zoom" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_shingle') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_scree') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_shingle') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_scree') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_bare_rock') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_bare_rock') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'military_danger_area') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ffc0cb" fill-opacity="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'military_danger_area') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ffc0cb" fill-opacity="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'wetland_swamp') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'wetland_swamp') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_sand') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f5e9c6" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_sand') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f5e9c6" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_scree')</Filter>
+    <PolygonSymbolizer fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_shingle')</Filter>
+    <PolygonSymbolizer fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_bare_rock')</Filter>
+    <PolygonSymbolizer fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_forest') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_wood') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_wood') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_forest') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'military_danger_area')</Filter>
+    <PolygonSymbolizer fill="#ffc0cb" fill-opacity="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'wetland_swamp')</Filter>
+    <PolygonSymbolizer fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_sand')</Filter>
+    <PolygonSymbolizer fill="#f5e9c6" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_wood')</Filter>
+    <PolygonSymbolizer fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_forest')</Filter>
+    <PolygonSymbolizer fill="#add19e" />
+  </Rule>
+</Style>
+<Style name="landcover-low-zoom-first" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'wetland_tidalflat') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'wetland_mud') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'wetland_mud') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'wetland_tidalflat') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'wetland_tidalflat')</Filter>
+    <PolygonSymbolizer fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([feature] = 'wetland_mud')</Filter>
+    <PolygonSymbolizer fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+</Style>
+<Layer name="landcover-low-zoom"
+  minzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>landcover-low-zoom-first</StyleName>
+    <StyleName>landcover-low-zoom</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way, name, way_pixels,
+    COALESCE(wetland, landuse, "natural") AS feature
+  FROM (SELECT
+      way, COALESCE(name, '') AS name,
+      ('landuse_' || (CASE WHEN landuse IN ('forest', 'military') THEN landuse ELSE NULL END)) AS landuse,
+      ('natural_' || (CASE WHEN "natural" IN ('wood', 'sand', 'scree', 'shingle', 'bare_rock') THEN "natural" ELSE NULL END)) AS "natural",
+      ('wetland_' || (CASE WHEN "natural" IN ('wetland', 'mud') THEN (CASE WHEN "natural" IN ('mud') THEN "natural" ELSE wetland END) ELSE NULL END)) AS wetland,
+      way_area/NULLIF(!pixel_width!::real*!pixel_height!::real,0) AS way_pixels
+    FROM planet_osm_polygon
+    WHERE (landuse IN ('forest', 'military')
+      OR "natural" IN ('wood', 'wetland', 'mud', 'sand', 'scree', 'shingle', 'bare_rock'))
+      AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real
+      AND building IS NULL
+    ORDER BY CASE WHEN layer~E'^-?\\d+$' AND length(layer)<10 THEN layer::integer ELSE 0 END, way_area DESC
+  ) AS features
+) AS landcover_low_zoom]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="landcover" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_school') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_school') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_school') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_school') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_school') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_school') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_school')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_school')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_school')</Filter>
+    <PolygonSymbolizer fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_college') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_college') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_college') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_college') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_college') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_college') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_college')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_college')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_college')</Filter>
+    <PolygonSymbolizer fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_university') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_university') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_university') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_university') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_university') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_university') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_university')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_university')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_university')</Filter>
+    <PolygonSymbolizer fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_hospital') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_hospital') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_hospital') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_hospital') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_hospital') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_hospital') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_hospital')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_hospital')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_hospital')</Filter>
+    <PolygonSymbolizer fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_kindergarten') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_kindergarten') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_kindergarten') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_kindergarten') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_kindergarten') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_kindergarten') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_kindergarten')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+    <LineSymbolizer stroke-width="0.3" stroke="#a52a2a" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_kindergarten')</Filter>
+    <PolygonSymbolizer fill="#f0f0d8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>200000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_kindergarten')</Filter>
+    <PolygonSymbolizer fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_shingle') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#eee5dc" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/scree_overlay.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_shingle') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_scree') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#eee5dc" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/scree_overlay.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_scree') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_shingle') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#eee5dc" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/scree_overlay.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_shingle') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_scree') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#eee5dc" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/scree_overlay.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_scree') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_bare_rock') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#eee5dc" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/rock_overlay.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_bare_rock') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_bare_rock') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#eee5dc" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/rock_overlay.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_bare_rock') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f2dad9" />
+    <LineSymbolizer stroke-width="0.7" stroke="#d1b2b0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f2dad9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f2dad9" />
+    <LineSymbolizer stroke-width="0.7" stroke="#d1b2b0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f2dad9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#f2dad9" />
+    <LineSymbolizer stroke-width="0.7" stroke="#d1b2b0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#f2dad9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.7" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_railway') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+    <LineSymbolizer stroke-width="0.7" stroke="#c6b3c3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_railway') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_railway') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+    <LineSymbolizer stroke-width="0.7" stroke="#c6b3c3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_railway') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_railway') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+    <LineSymbolizer stroke-width="0.7" stroke="#c6b3c3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_railway') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+    <LineSymbolizer stroke-width="0.7" stroke="#c6b3c3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+    <LineSymbolizer stroke-width="0.7" stroke="#c6b3c3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+    <LineSymbolizer stroke-width="0.7" stroke="#c6b3c3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([way_pixels] &gt;= 64) and ([name] != '')</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ffd6d1" />
+    <LineSymbolizer stroke-width="0.7" stroke="#d99c95" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([way_pixels] &gt;= 64) and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ffd6d1" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ffd6d1" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d99c95" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer fill="#ffd6d1" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([way_pixels] &gt;= 4) and ([name] != '')</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ffd6d1" />
+    <LineSymbolizer stroke-width="0.7" stroke="#d99c95" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([way_pixels] &gt;= 4) and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ffd6d1" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ffd6d1" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d99c95" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer fill="#ffd6d1" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ffd6d1" />
+    <LineSymbolizer stroke-width="0.7" stroke="#d99c95" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_retail') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#ffd6d1" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#efd6b5" />
+    <LineSymbolizer stroke-width="0.7" stroke="#d1b48c" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#efd6b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#efd6b5" />
+    <LineSymbolizer stroke-width="0.7" stroke="#d1b48c" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#efd6b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#efd6b5" />
+    <LineSymbolizer stroke-width="0.7" stroke="#d1b48c" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#efd6b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_allotments') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e5c7ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_allotments') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/allotments.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_allotments') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e5c7ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_allotments') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/allotments.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>400000</MinScaleDenominator>
+    <Filter>([feature] = 'military_danger_area') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ffc0cb" fill-opacity="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>400000</MaxScaleDenominator>
+    <Filter>([feature] = 'military_danger_area') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/danger.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>400000</MinScaleDenominator>
+    <Filter>([feature] = 'military_danger_area') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ffc0cb" fill-opacity="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>400000</MaxScaleDenominator>
+    <Filter>([feature] = 'military_danger_area') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/danger.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e0dfdf" />
+    <LineSymbolizer stroke-width="0.7" stroke="#b9b9b9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([name] != '') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e0dfdf" />
+    <LineSymbolizer stroke-width="0.7" stroke="#b9b9b9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([name] != '') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e0dfdf" />
+    <LineSymbolizer stroke-width="0.7" stroke="#b9b9b9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([name] != '')</Filter>
+    <PolygonSymbolizer fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'jewish') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/grave_yard_jewish.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'jewish') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'INT-generic') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/grave_yard_generic.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'INT-generic') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'christian') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/grave_yard_christian.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'christian') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'christian') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/grave_yard_christian.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'christian') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'jewish') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/grave_yard_jewish.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'jewish') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'INT-generic') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/grave_yard_generic.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'INT-generic') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'christian') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/grave_yard_christian.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'christian') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'jewish') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/grave_yard_jewish.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'jewish') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'jewish') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/grave_yard_jewish.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'jewish') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'INT-generic') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/grave_yard_generic.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'INT-generic') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'INT-generic') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/grave_yard_generic.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'INT-generic') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'christian') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/grave_yard_christian.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'christian') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_pitch') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#8ad3af" />
+    <LineSymbolizer stroke-width="0.5" stroke="#197849" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'leisure_pitch') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#8ad3af" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_pitch') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#8ad3af" />
+    <LineSymbolizer stroke-width="0.5" stroke="#197849" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'leisure_pitch') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#8ad3af" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_pitch')</Filter>
+    <PolygonSymbolizer fill="#8ad3af" />
+    <LineSymbolizer stroke-width="0.5" stroke="#197849" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'leisure_pitch')</Filter>
+    <PolygonSymbolizer fill="#8ad3af" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_track') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#74dcba" />
+    <LineSymbolizer stroke-width="0.5" stroke="#0d7754" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'leisure_track') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#74dcba" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_track') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#74dcba" />
+    <LineSymbolizer stroke-width="0.5" stroke="#0d7754" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'leisure_track') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#74dcba" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_track')</Filter>
+    <PolygonSymbolizer fill="#74dcba" />
+    <LineSymbolizer stroke-width="0.5" stroke="#0d7754" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'leisure_track')</Filter>
+    <PolygonSymbolizer fill="#74dcba" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_stadium') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#33cc99" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_sports_centre') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#33cc99" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_stadium') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#33cc99" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_sports_centre') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#33cc99" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'highway_rest_area') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#efc8c8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'highway_services') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#efc8c8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'highway_rest_area') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#efc8c8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'highway_services') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#efc8c8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_beach') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#fff1ba" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_shoal') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#fff1ba" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_shoal') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#fff1ba" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_beach') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#fff1ba" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'aeroway_aerodrome') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e9e7e2" />
+    <LineSymbolizer stroke-width="0.2" stroke="#ab9254" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'aeroway_aerodrome') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e9e7e2" />
+    <LineSymbolizer stroke-width="0.2" stroke="#ab9254" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'aeroway_apron') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e9d1ff" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'aeroway_apron') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e9d1ff" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_bicycle_parking') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f7efb7" />
+    <LineSymbolizer stroke-width="0.3" stroke="#e2c600" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_bicycle_parking') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f7efb7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_motorcycle_parking') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f7efb7" />
+    <LineSymbolizer stroke-width="0.3" stroke="#e2c600" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_motorcycle_parking') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f7efb7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_parking') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f7efb7" />
+    <LineSymbolizer stroke-width="0.3" stroke="#e2c600" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_parking') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f7efb7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_bicycle_parking') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f7efb7" />
+    <LineSymbolizer stroke-width="0.3" stroke="#e2c600" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_bicycle_parking') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f7efb7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_motorcycle_parking') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f7efb7" />
+    <LineSymbolizer stroke-width="0.3" stroke="#e2c600" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_motorcycle_parking') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f7efb7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_parking') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f7efb7" />
+    <LineSymbolizer stroke-width="0.3" stroke="#e2c600" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_parking') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f7efb7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_motorcycle_parking')</Filter>
+    <PolygonSymbolizer fill="#f7efb7" />
+    <LineSymbolizer stroke-width="0.3" stroke="#e2c600" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_motorcycle_parking')</Filter>
+    <PolygonSymbolizer fill="#f7efb7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_bicycle_parking')</Filter>
+    <PolygonSymbolizer fill="#f7efb7" />
+    <LineSymbolizer stroke-width="0.3" stroke="#e2c600" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_bicycle_parking')</Filter>
+    <PolygonSymbolizer fill="#f7efb7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_parking')</Filter>
+    <PolygonSymbolizer fill="#f7efb7" />
+    <LineSymbolizer stroke-width="0.3" stroke="#e2c600" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_parking')</Filter>
+    <PolygonSymbolizer fill="#f7efb7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_wet_meadow') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_marsh') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_wet_meadow') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_marsh') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_bog') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#d6d99f" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_string_bog') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#d6d99f" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_bog') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#d6d99f" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_string_bog') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#d6d99f" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_swamp') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_swamp') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_scrub') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#b5e3b5" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/scrub.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_scrub') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#b5e3b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_scrub') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#b5e3b5" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/scrub.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_scrub') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#b5e3b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_heath') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#d6d99f" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_heath') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#d6d99f" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_sand') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f5e9c6" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_sand') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f5e9c6" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_shingle')</Filter>
+    <PolygonSymbolizer fill="#eee5dc" />
+    <PolygonPatternSymbolizer file="symbols/scree_overlay.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_shingle')</Filter>
+    <PolygonSymbolizer fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_scree')</Filter>
+    <PolygonSymbolizer fill="#eee5dc" />
+    <PolygonPatternSymbolizer file="symbols/scree_overlay.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_scree')</Filter>
+    <PolygonSymbolizer fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_bare_rock')</Filter>
+    <PolygonSymbolizer fill="#eee5dc" />
+    <PolygonPatternSymbolizer file="symbols/rock_overlay.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>100000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_bare_rock')</Filter>
+    <PolygonSymbolizer fill="#eee5dc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_construction') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#b6b592" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_landfill') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#b6b592" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_brownfield') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#b6b592" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_construction') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#b6b592" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_brownfield') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#b6b592" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_landfill') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#b6b592" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f2dad9" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d1b2b0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#f2dad9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f2dad9" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d1b2b0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#f2dad9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial')</Filter>
+    <PolygonSymbolizer fill="#f2dad9" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d1b2b0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_commercial')</Filter>
+    <PolygonSymbolizer fill="#f2dad9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_station') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_station')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_station')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_station')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_generator')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_generator')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_substation')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_substation')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'power_sub_station')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+    <LineSymbolizer stroke-width="0.5" stroke="#bba4b7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station')</Filter>
+    <PolygonSymbolizer fill="#e2cbde" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'power_sub_station')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_railway') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_railway') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+    <LineSymbolizer stroke-width="0.5" stroke="#c6b3c3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+    <LineSymbolizer stroke-width="0.5" stroke="#c6b3c3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+    <LineSymbolizer stroke-width="0.5" stroke="#c6b3c3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_industrial')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_retail')</Filter>
+    <PolygonSymbolizer fill="#ffd6d1" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d99c95" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_retail')</Filter>
+    <PolygonSymbolizer fill="#ffd6d1" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_common') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_meadow') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_garden') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_grassland') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_grass') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_recreation_ground') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_village_green') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_grass') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_garden') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_village_green') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_recreation_ground') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_grassland') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_meadow') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_common') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_greenhouse_horticulture') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#fbecd7" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d6c4ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_greenhouse_horticulture') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#fbecd7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farm') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#fbecd7" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d6c4ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farm') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#fbecd7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farmland') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#fbecd7" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d6c4ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farmland') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#fbecd7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_greenhouse_horticulture') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#fbecd7" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d6c4ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_greenhouse_horticulture') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#fbecd7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farmland') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#fbecd7" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d6c4ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farmland') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#fbecd7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farm') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#fbecd7" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d6c4ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farm') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#fbecd7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_greenhouse_horticulture')</Filter>
+    <PolygonSymbolizer fill="#fbecd7" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d6c4ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_greenhouse_horticulture')</Filter>
+    <PolygonSymbolizer fill="#fbecd7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farmland')</Filter>
+    <PolygonSymbolizer fill="#fbecd7" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d6c4ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farmland')</Filter>
+    <PolygonSymbolizer fill="#fbecd7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farm')</Filter>
+    <PolygonSymbolizer fill="#fbecd7" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d6c4ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farm')</Filter>
+    <PolygonSymbolizer fill="#fbecd7" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#efd6b5" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d1b48c" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#efd6b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#efd6b5" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d1b48c" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#efd6b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard')</Filter>
+    <PolygonSymbolizer fill="#efd6b5" />
+    <LineSymbolizer stroke-width="0.5" stroke="#d1b48c" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_farmyard')</Filter>
+    <PolygonSymbolizer fill="#efd6b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_forest') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_wood') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_forest') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_wood') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_allotments')</Filter>
+    <PolygonSymbolizer fill="#e5c7ab" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_allotments')</Filter>
+    <PolygonPatternSymbolizer file="symbols/allotments.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_miniature_golf') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#b5e3b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_golf_course') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#b5e3b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_miniature_golf') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#b5e3b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_golf_course') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#b5e3b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_recreation_ground') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#c8facc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_park') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#c8facc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_park') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#c8facc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_recreation_ground') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#c8facc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>400000</MinScaleDenominator>
+    <Filter>([feature] = 'military_danger_area')</Filter>
+    <PolygonSymbolizer fill="#ffc0cb" fill-opacity="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>400000</MaxScaleDenominator>
+    <Filter>([feature] = 'military_danger_area')</Filter>
+    <PolygonPatternSymbolizer file="symbols/danger.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_garages') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#dfddce" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_garages') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#dfddce" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e0dfdf" />
+    <LineSymbolizer stroke-width="0.5" stroke="#b9b9b9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e0dfdf" />
+    <LineSymbolizer stroke-width="0.5" stroke="#b9b9b9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_residential') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_residential')</Filter>
+    <PolygonSymbolizer fill="#e0dfdf" />
+    <LineSymbolizer stroke-width="0.5" stroke="#b9b9b9" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_residential')</Filter>
+    <PolygonSymbolizer fill="#e0dfdf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_prison') and ([way_pixels] &gt; 75)</Filter>
+    <PolygonPatternSymbolizer file="symbols/grey_vertical_hatch.png" alignment="global" />
+    <LineSymbolizer stroke="#888888" stroke-width="3" stroke-opacity="0.329" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_place_of_worship')</Filter>
+    <PolygonSymbolizer fill="#cdccc9" clip="false" />
+    <LineSymbolizer stroke="#111111" stroke-width="0.3" clip="false" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_place_of_worship')</Filter>
+    <PolygonSymbolizer fill="#cdccc9" clip="false" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'INT-generic')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+    <PolygonPatternSymbolizer file="symbols/grave_yard_generic.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'INT-generic')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'INT-generic')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+    <PolygonPatternSymbolizer file="symbols/grave_yard_generic.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'INT-generic')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'christian')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+    <PolygonPatternSymbolizer file="symbols/grave_yard_christian.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'christian')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'christian')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+    <PolygonPatternSymbolizer file="symbols/grave_yard_christian.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'christian')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'jewish')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+    <PolygonPatternSymbolizer file="symbols/grave_yard_jewish.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([religion] = 'jewish')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'jewish')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+    <PolygonPatternSymbolizer file="symbols/grave_yard_jewish.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([religion] = 'jewish')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_orchard') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aedfa3" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/orchard.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_orchard') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aedfa3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_orchard') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aedfa3" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/orchard.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_orchard') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aedfa3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_vineyard') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aedfa3" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/vineyard.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_vineyard') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#aedfa3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_vineyard') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aedfa3" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/vineyard.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_vineyard') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#aedfa3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_quarry') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer fill="#c5c3c3" />
+    <PolygonPatternSymbolizer gamma="0.3" file="symbols/quarry.png" />
+    <LineSymbolizer stroke-width="0.5" stroke="#808080" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_quarry') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer fill="#c5c3c3" />
+    <PolygonPatternSymbolizer gamma="0.75" file="symbols/quarry.png" />
+    <LineSymbolizer stroke-width="0.5" stroke="#808080" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'tourism_picnic_site') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#def6c0" />
+    <LineSymbolizer stroke="#498400" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'tourism_caravan_site') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#def6c0" />
+    <LineSymbolizer stroke="#498400" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'tourism_camp_site') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#def6c0" />
+    <LineSymbolizer stroke="#498400" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'tourism_picnic_site') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#def6c0" />
+    <LineSymbolizer stroke="#498400" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'tourism_caravan_site') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#def6c0" />
+    <LineSymbolizer stroke="#498400" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'tourism_camp_site') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#def6c0" />
+    <LineSymbolizer stroke="#498400" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_playground') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#ccfff1" />
+    <LineSymbolizer stroke="#00996f" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_playground') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#ccfff1" />
+    <LineSymbolizer stroke="#00996f" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_swimming_pool') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="#b5d0d0" />
+    <LineSymbolizer stroke="#2c8d8d" stroke-width="0.5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_swimming_pool') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="#b5d0d0" />
+    <LineSymbolizer stroke="#2c8d8d" stroke-width="0.5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_sports_centre')</Filter>
+    <PolygonSymbolizer fill="#33cc99" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_stadium')</Filter>
+    <PolygonSymbolizer fill="#33cc99" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'railway_station')</Filter>
+    <PolygonSymbolizer fill="#d4aaaa" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'highway_services')</Filter>
+    <PolygonSymbolizer fill="#efc8c8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'highway_rest_area')</Filter>
+    <PolygonSymbolizer fill="#efc8c8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_beach')</Filter>
+    <PolygonSymbolizer fill="#fff1ba" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_shoal')</Filter>
+    <PolygonSymbolizer fill="#fff1ba" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'aeroway_aerodrome')</Filter>
+    <PolygonSymbolizer fill="#e9e7e2" />
+    <LineSymbolizer stroke-width="0.2" stroke="#ab9254" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'aeroway_apron')</Filter>
+    <PolygonSymbolizer fill="#e9d1ff" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_marsh')</Filter>
+    <PolygonSymbolizer fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_wet_meadow')</Filter>
+    <PolygonSymbolizer fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_string_bog')</Filter>
+    <PolygonSymbolizer fill="#d6d99f" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_bog')</Filter>
+    <PolygonSymbolizer fill="#d6d99f" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_swamp')</Filter>
+    <PolygonSymbolizer fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_scrub')</Filter>
+    <PolygonSymbolizer fill="#b5e3b5" />
+    <PolygonPatternSymbolizer file="symbols/scrub.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'natural_scrub')</Filter>
+    <PolygonSymbolizer fill="#b5e3b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_heath')</Filter>
+    <PolygonSymbolizer fill="#d6d99f" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_sand')</Filter>
+    <PolygonSymbolizer fill="#f5e9c6" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_construction')</Filter>
+    <PolygonSymbolizer fill="#b6b592" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_landfill')</Filter>
+    <PolygonSymbolizer fill="#b6b592" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_brownfield')</Filter>
+    <PolygonSymbolizer fill="#b6b592" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_railway')</Filter>
+    <PolygonSymbolizer fill="#ebdbe8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_common')</Filter>
+    <PolygonSymbolizer fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_village_green')</Filter>
+    <PolygonSymbolizer fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_garden')</Filter>
+    <PolygonSymbolizer fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_recreation_ground')</Filter>
+    <PolygonSymbolizer fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_grass')</Filter>
+    <PolygonSymbolizer fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_grassland')</Filter>
+    <PolygonSymbolizer fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_meadow')</Filter>
+    <PolygonSymbolizer fill="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'natural_wood')</Filter>
+    <PolygonSymbolizer fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_forest')</Filter>
+    <PolygonSymbolizer fill="#add19e" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_golf_course')</Filter>
+    <PolygonSymbolizer fill="#b5e3b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_miniature_golf')</Filter>
+    <PolygonSymbolizer fill="#b5e3b5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_park')</Filter>
+    <PolygonSymbolizer fill="#c8facc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_recreation_ground')</Filter>
+    <PolygonSymbolizer fill="#c8facc" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_garages')</Filter>
+    <PolygonSymbolizer fill="#dfddce" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_cemetery')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'amenity_grave_yard')</Filter>
+    <PolygonSymbolizer fill="#aacbaf" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_orchard')</Filter>
+    <PolygonSymbolizer fill="#aedfa3" />
+    <PolygonPatternSymbolizer file="symbols/orchard.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_orchard')</Filter>
+    <PolygonSymbolizer fill="#aedfa3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_vineyard')</Filter>
+    <PolygonSymbolizer fill="#aedfa3" />
+    <PolygonPatternSymbolizer file="symbols/vineyard.png" alignment="global" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([feature] = 'landuse_vineyard')</Filter>
+    <PolygonSymbolizer fill="#aedfa3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'landuse_quarry')</Filter>
+    <PolygonSymbolizer fill="#c5c3c3" />
+    <PolygonPatternSymbolizer file="symbols/quarry.png" />
+    <LineSymbolizer stroke-width="0.5" stroke="#808080" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'tourism_picnic_site')</Filter>
+    <PolygonSymbolizer fill="#def6c0" />
+    <LineSymbolizer stroke="#498400" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'tourism_camp_site')</Filter>
+    <PolygonSymbolizer fill="#def6c0" />
+    <LineSymbolizer stroke="#498400" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'tourism_caravan_site')</Filter>
+    <PolygonSymbolizer fill="#def6c0" />
+    <LineSymbolizer stroke="#498400" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_playground')</Filter>
+    <PolygonSymbolizer fill="#ccfff1" />
+    <LineSymbolizer stroke="#00996f" stroke-width="0.3" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([feature] = 'leisure_swimming_pool')</Filter>
+    <PolygonSymbolizer fill="#b5d0d0" />
+    <LineSymbolizer stroke="#2c8d8d" stroke-width="0.5" />
+  </Rule>
+</Style>
+<Style name="landcover-first" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_tidalflat') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_mud') and ([way_pixels] &gt;= 64)</Filter>
+    <PolygonSymbolizer gamma="0.3" fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_tidalflat') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_mud') and ([way_pixels] &gt;= 4)</Filter>
+    <PolygonSymbolizer gamma="0.75" fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_mud')</Filter>
+    <PolygonSymbolizer fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <Filter>([feature] = 'wetland_tidalflat')</Filter>
+    <PolygonSymbolizer fill="rgba(203, 177, 154, 0.3)" />
+  </Rule>
+</Style>
+<Layer name="landcover"
+  maxzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>landcover-first</StyleName>
+    <StyleName>landcover</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way, name, religion, way_pixels,
+    COALESCE(aeroway, amenity, wetland, power, landuse, leisure, military, "natural", tourism, highway, railway) AS feature
+  FROM (SELECT
+      way, COALESCE(name, '') AS name,
+      ('aeroway_' || (CASE WHEN aeroway IN ('apron', 'aerodrome') THEN aeroway ELSE NULL END)) AS aeroway,
+      ('amenity_' || (CASE WHEN amenity IN ('parking', 'bicycle_parking', 'motorcycle_parking', 'university', 'college', 'school', 
+                                            'hospital', 'kindergarten', 'grave_yard', 'prison', 'place_of_worship', 'clinic') 
+                                            THEN amenity ELSE NULL END)) AS amenity,
+      ('landuse_' || (CASE WHEN landuse IN ('quarry', 'vineyard', 'orchard', 'cemetery', 'residential', 'garages', 'meadow', 'grass', 
+                                            'allotments', 'forest', 'farmyard', 'farm', 'farmland', 'greenhouse_horticulture', 
+                                            'recreation_ground', 'village_green', 'retail', 'industrial', 'railway', 'commercial', 
+                                            'brownfield', 'landfill', 'construction') THEN landuse ELSE NULL END)) AS landuse,
+      ('leisure_' || (CASE WHEN leisure IN ('swimming_pool', 'playground', 'park', 'recreation_ground', 'common', 'garden', 
+                                            'golf_course', 'miniature_golf', 'picnic_table', 'sports_centre', 'stadium', 'pitch', 
+                                            'track') THEN leisure ELSE NULL END)) AS leisure,
+      ('military_' || (CASE WHEN military IN ('danger_area') THEN military ELSE NULL END)) AS military,
+      ('natural_' || (CASE WHEN "natural" IN ('beach', 'shoal', 'heath', 'grassland', 'wood', 'sand', 'scree', 'shingle', 'bare_rock', 'scrub') THEN "natural" ELSE NULL END)) AS "natural",
+      ('wetland_' || (CASE WHEN "natural" IN ('wetland', 'marsh', 'mud') THEN (CASE WHEN "natural" IN ('marsh', 'mud') THEN "natural" ELSE wetland END) ELSE NULL END)) AS wetland,
+      ('power_' || (CASE WHEN power IN ('station', 'sub_station', 'substation', 'generator') THEN power ELSE NULL END)) AS power,
+      ('tourism_' || (CASE WHEN tourism IN ('attraction', 'camp_site', 'caravan_site', 'picnic_site') THEN tourism ELSE NULL END)) AS tourism,
+      ('highway_' || (CASE WHEN highway IN ('services', 'rest_area') THEN highway ELSE NULL END)) AS highway,
+      ('railway_' || (CASE WHEN railway = 'station' THEN railway ELSE NULL END)) AS railway,
+      CASE WHEN religion IN ('christian', 'jewish') THEN religion ELSE 'INT-generic'::text END AS religion,
+      way_area/NULLIF(!pixel_width!::real*!pixel_height!::real,0) AS way_pixels
+    FROM planet_osm_polygon
+    WHERE (landuse IS NOT NULL
+      OR leisure IS NOT NULL
+      OR aeroway IN ('apron', 'aerodrome')
+      OR amenity IN ('parking', 'bicycle_parking', 'motorcycle_parking', 'university', 'college', 'school', 'hospital', 'kindergarten', 
+                     'grave_yard', 'place_of_worship', 'prison', 'clinic')
+      OR military IN ('danger_area')
+      OR "natural" IN ('beach', 'shoal', 'heath', 'mud', 'marsh', 'wetland', 'grassland', 'wood', 'sand', 'scree', 'shingle', 'bare_rock', 'scrub')
+      OR power IN ('station', 'sub_station', 'substation', 'generator')
+      OR tourism IN ('attraction', 'camp_site', 'caravan_site', 'picnic_site')
+      OR highway IN ('services', 'rest_area')
+      OR railway = 'station')
+      AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real
+    ORDER BY CASE WHEN layer~E'^-?\\d+$' AND length(layer)<10 THEN layer::integer ELSE 0 END, way_area DESC
+  ) AS landcover
+) AS features]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="landcover-line" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>2500</MaxScaleDenominator>
+    <LineSymbolizer stroke-width="12" stroke-linejoin="round" stroke-linecap="square" stroke="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <MinScaleDenominator>2500</MinScaleDenominator>
+    <LineSymbolizer stroke-width="6" stroke-linejoin="round" stroke-linecap="square" stroke="#cdebb0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <LineSymbolizer stroke-width="3" stroke-linejoin="round" stroke-linecap="square" stroke="#cdebb0" />
+  </Rule>
+</Style>
+<Layer name="landcover-line"
+  maxzoom="50000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>landcover-line</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way
+  FROM planet_osm_line
+  WHERE man_made = 'cutline'
+) AS landcover_line]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+</Map>

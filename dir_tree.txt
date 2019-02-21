@@ -1,0 +1,13 @@
+carto
+    shapes
+    openstreetmap-carto
+        openstreetmap-carto.style
+    Bristol
+postgis
+    ./data
+    
+renderer
+    cd carto
+
+
+

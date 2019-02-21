@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Map[]>
+<Map srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" background-color="#f2efe9" maximum-extent="-20037508.34,-20037508.34,20037508.34,20037508.34">
+
+<Parameters>
+  <Parameter name="scale">1</Parameter>
+  <Parameter name="center">0,0,4</Parameter>
+  <Parameter name="format">png</Parameter>
+  <Parameter name="metatile">2</Parameter>
+  <Parameter name="bounds">-180,-85.05112877980659,180,85.05112877980659</Parameter>
+  <Parameter name="name"><![CDATA[OpenStreetMap Carto]]></Parameter>
+  <Parameter name="minzoom">0</Parameter>
+  <Parameter name="maxzoom">22</Parameter>
+  <Parameter name="description"><![CDATA[A faithful reimplementation of the standard OpenStreetMap style]]></Parameter>
+</Parameters>
+
+
+<Style name="ocean-lz" filter-mode="first">
+  <Rule>
+    <PolygonSymbolizer fill="#b5d0d0" />
+  </Rule>
+</Style>
+<Layer name="ocean-lz"
+  minzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>ocean-lz</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="ocean" filter-mode="first">
+  <Rule>
+    <PolygonSymbolizer fill="#b5d0d0" />
+  </Rule>
+</Style>
+<Layer name="ocean"
+  maxzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>ocean</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/water-polygons-split-3857/water_polygons.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="builtup" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <PolygonSymbolizer fill="#dddddd" />
+  </Rule>
+</Style>
+<Layer name="builtup"
+  minzoom="750000"
+  maxzoom="3000000"
+  srs="+proj=merc +datum=WGS84 +over">
+    <StyleName>builtup</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/world_boundaries/builtup_area.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="necountries" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>100000000</MaxScaleDenominator>
+    <MinScaleDenominator>50000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.4" stroke="#ac46ac" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000000</MaxScaleDenominator>
+    <MinScaleDenominator>100000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.3" stroke="#ac46ac" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>500000000</MaxScaleDenominator>
+    <MinScaleDenominator>200000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.2" stroke="#ac46ac" />
+  </Rule>
+</Style>
+<Layer name="necountries"
+  minzoom="50000000"
+  maxzoom="500000000"
+  srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+    <StyleName>necountries</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="nature-reserve-boundaries" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([way_pixels] &gt; 100)</Filter>
+    <LineSymbolizer stroke-width="2" offset="-1" stroke="#008000" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" />
+    <LineSymbolizer stroke-width="6" offset="-3" stroke="#008000" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>50000</MinScaleDenominator>
+    <Filter>([way_pixels] &gt; 100)</Filter>
+    <LineSymbolizer stroke-width="2" offset="-1" stroke="#008000" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" />
+    <LineSymbolizer stroke-width="4" offset="-2" stroke="#008000" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>6500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([way_pixels] &gt; 100)</Filter>
+    <LineSymbolizer stroke-width="1" offset="-0.5" stroke="#008000" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" />
+    <LineSymbolizer stroke-width="2" offset="-1" stroke="#008000" stroke-opacity="0.15" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+</Style>
+<Style name="nature-reserve-boundaries-fill" filter-mode="first" opacity="0.05">
+  <Rule>
+    <MaxScaleDenominator>6500000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <Filter>([way_pixels] &gt; 100)</Filter>
+    <PolygonSymbolizer fill="#008000" />
+  </Rule>
+</Style>
+<Layer name="nature-reserve-boundaries"
+  maxzoom="6500000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>nature-reserve-boundaries-fill</StyleName>
+    <StyleName>nature-reserve-boundaries</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way,
+    name,
+    boundary,
+    way_area/NULLIF(!pixel_width!::real*!pixel_height!::real,0) AS way_pixels
+  FROM planet_osm_polygon
+  WHERE (boundary = 'national_park' OR leisure = 'nature_reserve')
+    AND building IS NULL
+    AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real
+) AS national_park_boundaries]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="cliffs-man_made" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([man_made] = 'embankment')</Filter>
+    <LinePatternSymbolizer file="symbols/embankment.png" />
+  </Rule>
+</Style>
+<Style name="cliffs" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <Filter>([natural] = 'cliff')</Filter>
+    <LinePatternSymbolizer file="symbols/cliff2.png" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <Filter>([natural] = 'cliff')</Filter>
+    <LinePatternSymbolizer file="symbols/cliff.png" />
+  </Rule>
+</Style>
+<Layer name="cliffs"
+  maxzoom="100000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>cliffs</StyleName>
+    <StyleName>cliffs-man_made</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way, "natural", man_made
+  FROM planet_osm_line
+  WHERE "natural" = 'cliff' OR man_made = 'embankment'
+) AS cliffs]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="trees-trunk" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>750</MaxScaleDenominator>
+    <Filter>([natural] = 'tree')</Filter>
+    <MarkersSymbolizer width="6" height="6" fill="#b27f36" allow-overlap="true" stroke-width="0" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500</MaxScaleDenominator>
+    <MinScaleDenominator>750</MinScaleDenominator>
+    <Filter>([natural] = 'tree')</Filter>
+    <MarkersSymbolizer width="3" height="3" fill="#b27f36" allow-overlap="true" stroke-width="0" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>2500</MaxScaleDenominator>
+    <MinScaleDenominator>1500</MinScaleDenominator>
+    <Filter>([natural] = 'tree')</Filter>
+    <MarkersSymbolizer fill="#b27f36" allow-overlap="true" stroke-width="0" width="2" height="2" ignore-placement="true" />
+  </Rule>
+</Style>
+<Style name="trees-canopy" filter-mode="first" opacity="0.3">
+  <Rule>
+    <MaxScaleDenominator>750</MaxScaleDenominator>
+    <Filter>([natural] = 'tree')</Filter>
+    <MarkersSymbolizer width="30" height="30" fill="#008000" allow-overlap="true" stroke-width="0" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500</MaxScaleDenominator>
+    <MinScaleDenominator>750</MinScaleDenominator>
+    <Filter>([natural] = 'tree')</Filter>
+    <MarkersSymbolizer width="15" height="15" fill="#008000" allow-overlap="true" stroke-width="0" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>2500</MaxScaleDenominator>
+    <MinScaleDenominator>1500</MinScaleDenominator>
+    <Filter>([natural] = 'tree')</Filter>
+    <MarkersSymbolizer width="10" height="10" fill="#008000" allow-overlap="true" stroke-width="0" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>5000</MaxScaleDenominator>
+    <MinScaleDenominator>2500</MinScaleDenominator>
+    <Filter>([natural] = 'tree')</Filter>
+    <MarkersSymbolizer width="5" height="5" fill="#008000" allow-overlap="true" stroke-width="0" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <MinScaleDenominator>5000</MinScaleDenominator>
+    <Filter>([natural] = 'tree')</Filter>
+    <MarkersSymbolizer fill="#008000" allow-overlap="true" stroke-width="0" width="2.5" height="2.5" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750</MaxScaleDenominator>
+    <Filter>([natural] = 'tree_row')</Filter>
+    <LineSymbolizer stroke-width="30" stroke="#008000" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>1500</MaxScaleDenominator>
+    <MinScaleDenominator>750</MinScaleDenominator>
+    <Filter>([natural] = 'tree_row')</Filter>
+    <LineSymbolizer stroke-width="15" stroke="#008000" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>2500</MaxScaleDenominator>
+    <MinScaleDenominator>1500</MinScaleDenominator>
+    <Filter>([natural] = 'tree_row')</Filter>
+    <LineSymbolizer stroke-width="10" stroke="#008000" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>5000</MaxScaleDenominator>
+    <MinScaleDenominator>2500</MinScaleDenominator>
+    <Filter>([natural] = 'tree_row')</Filter>
+    <LineSymbolizer stroke-width="5" stroke="#008000" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <MinScaleDenominator>5000</MinScaleDenominator>
+    <Filter>([natural] = 'tree_row')</Filter>
+    <LineSymbolizer stroke="#008000" stroke-linecap="round" stroke-width="2.5" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+  </Rule>
+</Style>
+<Layer name="trees"
+  maxzoom="12500"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>trees-canopy</StyleName>
+    <StyleName>trees-trunk</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way, "natural"
+  FROM planet_osm_point
+  WHERE "natural" = 'tree'
+UNION ALL
+SELECT
+    way, "natural"
+  FROM planet_osm_line
+  WHERE "natural" = 'tree_row'
+) AS trees]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+</Map>

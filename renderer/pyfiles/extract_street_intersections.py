@@ -2,12 +2,12 @@ import psycopg2, pickle
 
 def query_road_points_list():
     # Query the main information
-    conn = psycopg2.connect("dbname='gis' user='postgres' host='f978bc0bd1f8'")
+    conn = psycopg2.connect("dbname='gis' user='postgres' host='5e30668fe2a6'")
     cur = conn.cursor()
     query = """
-    SELECT ST_Y((dp).geom), ST_X((dp).geom), name, highway, junction, sidewalk, lit, lanes, noexit
+    SELECT ST_Y((dp).geom), ST_X((dp).geom), ST_Y((dp2).geom), ST_X((dp2).geom), name, highway, junction, sidewalk, lit, lanes, noexit
     FROM(
-        SELECT ST_DumpPoints(ST_Transform(way,4326)) AS dp, name, highway, junction, tags->'sidewalk' as sidewalk, tags->'lit' as lit, tags->'lanes' as lanes, tags->'noexit' as noexit
+        SELECT ST_DumpPoints(ST_Transform(way,4326)) AS dp, ST_DumpPoints(way) AS dp2, name, highway, junction, tags->'sidewalk' as sidewalk, tags->'lit' as lit, tags->'lanes' as lanes, tags->'noexit' as noexit
         FROM planet_osm_line 
         WHERE name = 'Park Row' and highway <> ''
         ORDER BY name
@@ -18,7 +18,7 @@ def query_road_points_list():
     return points 
 
 def query_near_roads(lat, lon):
-    conn = psycopg2.connect("dbname='gis' user='postgres' host='f978bc0bd1f8'")
+    conn = psycopg2.connect("dbname='gis' user='postgres' host='5e30668fe2a6'")
     cur = conn.cursor()
     size = 0.001
     query = """ SELECT name
@@ -39,12 +39,12 @@ def query_near_roads(lat, lon):
         
 def query_intersections(street1, near_roads):
     intersections = []
-    conn = psycopg2.connect("dbname='gis' user='postgres' host='f978bc0bd1f8'")
+    conn = psycopg2.connect("dbname='gis' user='postgres' host='5e30668fe2a6'")
     cur = conn.cursor()
     for street2 in near_roads:
         qmark = street2.find("'")
         if qmark != None:
-            street2 = street2 + 
+            street2 = street2 + "gato"
         
         query = """
         select ST_Y(ST_Transform(the_intersection, 4326)), ST_X(ST_Transform(the_intersection, 4326))
@@ -63,11 +63,12 @@ def query_intersections(street1, near_roads):
 
 # Query the main information
 locations = query_road_points_list()
-for location in locations:
-    street = location[2]
-    lat, lon = location[0], location[1]
-    near_roads = query_near_roads(lat, lon)
-    intersections = query_intersections(street, near_roads)
+print(locations[0])
+# for location in locations:
+    # street = location[2]
+    # lat, lon = location[0], location[1]
+    # near_roads = query_near_roads(lat, lon)
+    # intersections = query_intersections(street, near_roads)
 
 
 

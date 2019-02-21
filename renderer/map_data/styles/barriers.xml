@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Map[]>
+<Map srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over" background-color="#f2efe9" maximum-extent="-20037508.34,-20037508.34,20037508.34,20037508.34">
+
+<Parameters>
+  <Parameter name="scale">1</Parameter>
+  <Parameter name="center">0,0,4</Parameter>
+  <Parameter name="format">png</Parameter>
+  <Parameter name="metatile">2</Parameter>
+  <Parameter name="bounds">-180,-85.05112877980659,180,85.05112877980659</Parameter>
+  <Parameter name="name"><![CDATA[OpenStreetMap Carto]]></Parameter>
+  <Parameter name="minzoom">0</Parameter>
+  <Parameter name="maxzoom">22</Parameter>
+  <Parameter name="description"><![CDATA[A faithful reimplementation of the standard OpenStreetMap style]]></Parameter>
+</Parameters>
+
+
+<Style name="ocean-lz" filter-mode="first">
+  <Rule>
+    <PolygonSymbolizer fill="#b5d0d0" />
+  </Rule>
+</Style>
+<Layer name="ocean-lz"
+  minzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>ocean-lz</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="ocean" filter-mode="first">
+  <Rule>
+    <PolygonSymbolizer fill="#b5d0d0" />
+  </Rule>
+</Style>
+<Layer name="ocean"
+  maxzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>ocean</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/water-polygons-split-3857/water_polygons.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="builtup" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>3000000</MaxScaleDenominator>
+    <MinScaleDenominator>750000</MinScaleDenominator>
+    <PolygonSymbolizer fill="#dddddd" />
+  </Rule>
+</Style>
+<Layer name="builtup"
+  minzoom="750000"
+  maxzoom="3000000"
+  srs="+proj=merc +datum=WGS84 +over">
+    <StyleName>builtup</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/world_boundaries/builtup_area.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="necountries" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>100000000</MaxScaleDenominator>
+    <MinScaleDenominator>50000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.4" stroke="#ac46ac" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>200000000</MaxScaleDenominator>
+    <MinScaleDenominator>100000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.3" stroke="#ac46ac" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>500000000</MaxScaleDenominator>
+    <MinScaleDenominator>200000000</MinScaleDenominator>
+    <LineSymbolizer stroke-width="0.2" stroke="#ac46ac" />
+  </Rule>
+</Style>
+<Layer name="necountries"
+  minzoom="50000000"
+  maxzoom="500000000"
+  srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+    <StyleName>necountries</StyleName>
+    <Datasource>
+       <Parameter name="type"><![CDATA[shape]]></Parameter>
+       <Parameter name="file"><![CDATA[data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="water-barriers-line" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([waterway] = 'lock_gate')</Filter>
+    <LineSymbolizer stroke="#aaaaaa" stroke-width="2" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([waterway] = 'weir')</Filter>
+    <LineSymbolizer stroke="#aaaaaa" stroke-width="2" stroke-dasharray="2, 2" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([waterway] = 'dam')</Filter>
+    <LineSymbolizer stroke-width="2" stroke="#444444" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+</Style>
+<Layer name="water-barriers-line"
+  maxzoom="100000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>water-barriers-line</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT way, waterway, name
+  FROM planet_osm_line
+  WHERE waterway IN ('dam', 'weir', 'lock_gate')
+) AS water_barriers_line]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="tourism-boundary" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>5000</MaxScaleDenominator>
+    <Filter>([tourism] = 'theme_park') and ([way_pixels] &gt;= 60)</Filter>
+    <LineSymbolizer stroke-width="2" offset="-1" stroke="#734a08" stroke-opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
+    <LineSymbolizer stroke-width="6" offset="-3" stroke="#734a08" stroke-opacity="0.3" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>5000</MinScaleDenominator>
+    <Filter>([tourism] = 'theme_park') and ([way_pixels] &gt;= 60)</Filter>
+    <LineSymbolizer stroke-width="1" offset="-0.5" stroke="#734a08" stroke-opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
+    <LineSymbolizer stroke-width="4" offset="-2" stroke="#734a08" stroke-opacity="0.3" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>5000</MaxScaleDenominator>
+    <Filter>([tourism] = 'theme_park') and ([way_pixels] &gt;= 20)</Filter>
+    <LineSymbolizer stroke-width="2" offset="-1" stroke="#734a08" stroke-opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
+    <LineSymbolizer stroke-width="6" offset="-3" stroke="#734a08" stroke-opacity="0.3" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>5000</MinScaleDenominator>
+    <Filter>([tourism] = 'theme_park') and ([way_pixels] &gt;= 20)</Filter>
+    <LineSymbolizer stroke-width="1" offset="-0.5" stroke="#734a08" stroke-opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>5000</MaxScaleDenominator>
+    <Filter>([tourism] = 'zoo') and ([way_pixels] &gt;= 60)</Filter>
+    <LineSymbolizer stroke-width="2" offset="-1" stroke="#734a08" stroke-opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
+    <LineSymbolizer stroke-width="6" offset="-3" stroke="#734a08" stroke-opacity="0.3" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>5000</MinScaleDenominator>
+    <Filter>([tourism] = 'zoo') and ([way_pixels] &gt;= 60)</Filter>
+    <LineSymbolizer stroke-width="1" offset="-0.5" stroke="#734a08" stroke-opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
+    <LineSymbolizer stroke-width="4" offset="-2" stroke="#734a08" stroke-opacity="0.3" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>5000</MaxScaleDenominator>
+    <Filter>([tourism] = 'zoo') and ([way_pixels] &gt;= 20)</Filter>
+    <LineSymbolizer stroke-width="2" offset="-1" stroke="#734a08" stroke-opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
+    <LineSymbolizer stroke-width="6" offset="-3" stroke="#734a08" stroke-opacity="0.3" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>750000</MaxScaleDenominator>
+    <MinScaleDenominator>5000</MinScaleDenominator>
+    <Filter>([tourism] = 'zoo') and ([way_pixels] &gt;= 20)</Filter>
+    <LineSymbolizer stroke-width="1" offset="-0.5" stroke="#734a08" stroke-opacity="0.5" stroke-linejoin="round" stroke-linecap="round" />
+  </Rule>
+</Style>
+<Layer name="tourism-boundary"
+  maxzoom="750000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>tourism-boundary</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way,
+    way_area/NULLIF(!pixel_width!::real*!pixel_height!::real,0) AS way_pixels,
+    name,
+    tourism
+  FROM planet_osm_polygon
+  WHERE tourism = 'theme_park'
+    OR tourism = 'zoo'
+) AS tourism_boundary]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="water-barriers-poly" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>100000</MaxScaleDenominator>
+    <Filter>([waterway] = 'dam')</Filter>
+    <LineSymbolizer stroke-width="2" stroke="#444444" stroke-linejoin="round" stroke-linecap="round" />
+    <PolygonSymbolizer fill="#adadad" />
+  </Rule>
+</Style>
+<Layer name="water-barriers-poly"
+  maxzoom="100000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>water-barriers-poly</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT way, waterway, name
+  FROM planet_osm_polygon
+  WHERE waterway IN ('dam', 'weir', 'lock_gate')
+) AS water_barriers_poly]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="water-barriers-point" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>2500</MaxScaleDenominator>
+    <Filter>([waterway] = 'lock_gate')</Filter>
+    <MarkersSymbolizer width="10" fill="#aaaaaa" stroke-width="0" allow-overlap="true" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>5000</MaxScaleDenominator>
+    <MinScaleDenominator>2500</MinScaleDenominator>
+    <Filter>([waterway] = 'lock_gate')</Filter>
+    <MarkersSymbolizer fill="#aaaaaa" stroke-width="0" width="8" allow-overlap="true" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>2500</MaxScaleDenominator>
+    <Filter>([waterway] = 'weir')</Filter>
+    <MarkersSymbolizer width="10" fill="#b5d0d0" stroke="#aaaaaa" stroke-width="1" allow-overlap="true" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>5000</MaxScaleDenominator>
+    <MinScaleDenominator>2500</MinScaleDenominator>
+    <Filter>([waterway] = 'weir')</Filter>
+    <MarkersSymbolizer fill="#b5d0d0" stroke="#aaaaaa" stroke-width="1" width="8" allow-overlap="true" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>2500</MaxScaleDenominator>
+    <Filter>([waterway] = 'dam')</Filter>
+    <MarkersSymbolizer width="10" fill="#adadad" stroke="#444444" stroke-width="1" allow-overlap="true" ignore-placement="true" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>5000</MaxScaleDenominator>
+    <MinScaleDenominator>2500</MinScaleDenominator>
+    <Filter>([waterway] = 'dam')</Filter>
+    <MarkersSymbolizer fill="#adadad" stroke="#444444" stroke-width="1" width="8" allow-overlap="true" ignore-placement="true" />
+  </Rule>
+</Style>
+<Layer name="water-barriers-point"
+  maxzoom="5000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>water-barriers-point</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way, waterway
+  FROM planet_osm_point
+  WHERE waterway IN ('dam', 'weir', 'lock_gate')
+) AS water_barriers_points]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="line-barriers" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([barrier] = 'hedge')</Filter>
+    <LineSymbolizer stroke-width="3" stroke="#aed1a0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <Filter>([barrier] = 'embankment')</Filter>
+    <LineSymbolizer stroke-width="0.4" stroke="#444444" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <LineSymbolizer stroke-width="0.4" stroke="#444444" />
+  </Rule>
+</Style>
+<Layer name="line-barriers"
+  maxzoom="50000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>line-barriers</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way, barrier
+  FROM planet_osm_line
+  WHERE barrier IN ('chain', 'city_wall', 'embankment', 'ditch', 'fence', 'guard_rail',
+          'handrail', 'hedge', 'kerb', 'retaining_wall', 'wall')
+    AND (waterway IS NULL OR waterway NOT IN ('river', 'canal', 'derelict_canal', 'stream', 'drain', 'ditch', 'wadi'))
+) AS line_barriers]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="area-barriers" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([barrier] = 'hedge')</Filter>
+    <LineSymbolizer stroke="#444444" stroke-width="0.4" />
+    <PolygonSymbolizer fill="#aed1a0" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <Filter>([barrier] = 'embankment')</Filter>
+    <LineSymbolizer stroke="#444444" stroke-width="0.4" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <Filter>([barrier] = 'embankment')</Filter>
+    <LineSymbolizer stroke-width="0.4" stroke="#444444" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <LineSymbolizer stroke="#444444" stroke-width="0.4" />
+  </Rule>
+</Style>
+<Layer name="area-barriers"
+  maxzoom="12500"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>area-barriers</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way, barrier
+  FROM planet_osm_polygon
+  WHERE barrier IS NOT NULL
+) AS area_barriers]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+<Style name="citywalls" filter-mode="first">
+  <Rule>
+    <MaxScaleDenominator>12500</MaxScaleDenominator>
+    <LineSymbolizer stroke-width="9" stroke="#808080" stroke-opacity="0.8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>12500</MinScaleDenominator>
+    <LineSymbolizer stroke-width="6" stroke="#808080" stroke-opacity="0.8" />
+  </Rule>
+  <Rule>
+    <MaxScaleDenominator>50000</MaxScaleDenominator>
+    <MinScaleDenominator>25000</MinScaleDenominator>
+    <LineSymbolizer stroke="#808080" stroke-width="4" stroke-opacity="0.8" />
+  </Rule>
+</Style>
+<Layer name="citywalls"
+  maxzoom="50000"
+  srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <StyleName>citywalls</StyleName>
+    <Datasource>
+       <Parameter name="extent"><![CDATA[-20037508,-20037508,20037508,20037508]]></Parameter>
+       <Parameter name="table"><![CDATA[(SELECT
+    way
+  FROM planet_osm_line
+  WHERE historic = 'citywalls')
+AS citywalls]]></Parameter>
+       <Parameter name="geometry_field"><![CDATA[way]]></Parameter>
+       <Parameter name="type"><![CDATA[postgis]]></Parameter>
+       <Parameter name="key_field"><![CDATA[]]></Parameter>
+       <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+    <Parameter name="host"><![CDATA[postgis]]></Parameter>
+    <Parameter name="port"><![CDATA[5432]]></Parameter>
+    <Parameter name="user"><![CDATA[postgres]]></Parameter>
+    <Parameter name="password"><![CDATA[postgres]]></Parameter>
+    </Datasource>
+  </Layer>
+
+</Map>
