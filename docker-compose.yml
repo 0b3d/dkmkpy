@@ -11,6 +11,8 @@ services:
     volumes:
       - ./renderer/map_data:/map_data
       - ./renderer/scripts:/scripts
+      - ./renderer/pyfiles:/pyfiles
+      - ./renderer/images:/images
     volumes_from:
       - postgis:ro
     ports:
@@ -23,4 +25,5 @@ services:
     volumes:
       - ./web:/usr/share/nginx/html
     ports:
-      - "8888:80"
+      - "8888:80"      
+    

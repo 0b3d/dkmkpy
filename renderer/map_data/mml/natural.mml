@@ -1,0 +1,239 @@
+{
+  "interactivity": false,
+  "Layer": [
+    {
+      "name": "ocean-lz",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "ocean",
+      "id": "ocean-lz",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 9
+      },
+      "advanced": {}
+    },
+    {
+      "name": "ocean",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "ocean",
+      "id": "ocean",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/water-polygons-split-3857/water_polygons.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 10
+      },
+      "advanced": {}
+    },
+    {
+      "name": "builtup",
+      "srs-name": "mercator",
+      "geometry": "polygon",
+      "class": "",
+      "id": "builtup",
+      "srs": "+proj=merc +datum=WGS84 +over",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/world_boundaries/builtup_area.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 9,
+        "minzoom": 8
+      },
+      "advanced": {}
+    },
+    {
+      "name": "necountries",
+      "srs-name": "WGS84",
+      "geometry": "linestring",
+      "class": "",
+      "id": "necountries",
+      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 3,
+        "minzoom": 1
+      },
+      "advanced": {}
+    },
+    {
+      "name": "nature-reserve-boundaries",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "",
+      "id": "nature-reserve-boundaries",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    name,\n    boundary,\n    way_area/NULLIF(!pixel_width!::real*!pixel_height!::real,0) AS way_pixels\n  FROM planet_osm_polygon\n  WHERE (boundary = 'national_park' OR leisure = 'nature_reserve')\n    AND building IS NULL\n    AND way_area > 0.01*!pixel_width!::real*!pixel_height!::real\n) AS national_park_boundaries",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 7
+      },
+      "advanced": {}
+    },
+    {
+      "name": "cliffs",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "id": "cliffs",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way, \"natural\", man_made\n  FROM planet_osm_line\n  WHERE \"natural\" = 'cliff' OR man_made = 'embankment'\n) AS cliffs",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 13
+      },
+      "advanced": {}
+    },
+    {
+      "name": "trees",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "",
+      "id": "trees",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way, \"natural\"\n  FROM planet_osm_point\n  WHERE \"natural\" = 'tree'\nUNION ALL\nSELECT\n    way, \"natural\"\n  FROM planet_osm_line\n  WHERE \"natural\" = 'tree_row'\n) AS trees",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 16
+      },
+      "advanced": {}
+    }
+  ],
+  "scale": 1,
+  "center": [
+    0,
+    0,
+    4
+  ],
+  "format": "png",
+  "_parts": {
+    "extents": {
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "srs-name": "900913"
+    },
+    "osm2pgsql": {
+      "geometry_field": "way",
+      "type": "postgis",
+      "dbname": "gis",
+      "extent": "-20037508,-20037508,20037508,20037508",
+      "key_field": ""
+    },
+    "extents84": {
+      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "srs-name": "WGS84"
+    }
+  },
+  "metatile": 2,
+  "bounds": [
+    -180,
+    -85.05112877980659,
+    180,
+    85.05112877980659
+  ],
+  "name": "OpenStreetMap Carto",
+  "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+  "Stylesheet": [
+    "style.mss",
+    "shapefiles.mss",
+    "landcover.mss",
+    "water.mss",
+    "water-features.mss",
+    "roads.mss",
+    "power.mss",
+    "citywalls.mss",
+    "placenames.mss",
+    "buildings.mss",
+    "stations.mss",
+    "amenity-points.mss",
+    "ferry-routes.mss",
+    "aerialways.mss",
+    "admin.mss",
+    "addressing.mss"
+  ],
+  "minzoom": 0,
+  "maxzoom": 22,
+  "description": "A faithful reimplementation of the standard OpenStreetMap style"
+}

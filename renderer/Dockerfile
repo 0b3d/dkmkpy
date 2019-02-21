@@ -1,8 +1,16 @@
 FROM dpokidov/gopnik
 
 RUN apt-get update && \
-    apt-get install -y git curl unzip node-carto mapnik-utils fontconfig && \
+    apt-get install -y git curl unzip node-carto mapnik-utils fontconfig nano && \
+    apt-get install -y software-properties-common && \
+    apt-get install -y python3.6 && \
     rm -rf /var/lib/apt/lists/*
+RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
+    python get-pip.py && \
+    pip install numpy && \
+    pip install matplotlib && \
+    pip install tensorflow && \
+    apt-get install python-tk
 
 WORKDIR /
 RUN wget https://github.com/adobe-fonts/source-sans-pro/archive/2.020R-ro/1.075R-it.tar.gz && \
@@ -26,13 +34,22 @@ RUN shapeindex --shape_files \
 RUN mkdir /map_data
 VOLUME /map_data
 
+RUN mkdir /pyfiles
+VOLUME /pyfiles
+
+RUN mkdir /images
+VOLUME /images
+
 RUN mkdir /scripts
 COPY scripts/compile_style.sh /scripts
 COPY scripts/run_render.sh /scripts
+COPY scripts/configure.sh /scripts
 COPY entrypoint.sh /
 
 RUN chmod 755 /scripts/*.sh && \
     chmod 755 /entrypoint.sh
+
+
 
 WORKDIR /
 ENTRYPOINT /entrypoint.sh

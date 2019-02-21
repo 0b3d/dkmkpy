@@ -1,0 +1,474 @@
+{
+  "interactivity": false,
+  "Layer": [
+    {
+      "name": "ocean-lz",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "ocean",
+      "id": "ocean-lz",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/simplified-water-polygons-complete-3857/simplified_water_polygons.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 9
+      },
+      "advanced": {}
+    },
+    {
+      "name": "ocean",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "ocean",
+      "id": "ocean",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/water-polygons-split-3857/water_polygons.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 10
+      },
+      "advanced": {}
+    },
+    {
+      "name": "builtup",
+      "srs-name": "mercator",
+      "geometry": "polygon",
+      "class": "",
+      "id": "builtup",
+      "srs": "+proj=merc +datum=WGS84 +over",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/world_boundaries/builtup_area.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 9,
+        "minzoom": 8
+      },
+      "advanced": {}
+    },
+    {
+      "name": "necountries",
+      "srs-name": "WGS84",
+      "geometry": "linestring",
+      "class": "",
+      "id": "necountries",
+      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+      "Datasource": {
+        "type": "shape",
+        "file": "data/ne_110m_admin_0_boundary_lines_land/ne_110m_admin_0_boundary_lines_land.shp"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 3,
+        "minzoom": 1
+      },
+      "advanced": {}
+    },
+    {
+      "name": "piers-poly",
+      "srs-name": "900913",
+      "geometry": "polygon",
+      "class": "",
+      "id": "piers-poly",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way, man_made\n  FROM planet_osm_polygon\n  WHERE man_made IN ('pier', 'breakwater', 'groyne')\n) AS piers_poly",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 12
+      },
+      "advanced": {}
+    },
+    {
+      "name": "piers-line",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "id": "piers-line",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way, man_made\n  FROM planet_osm_line\n  WHERE man_made IN ('pier', 'breakwater', 'groyne')\n) AS piers_line",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 12
+      },
+      "advanced": {}
+    },
+    {
+      "name": "ferry-routes",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "id": "ferry-routes",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way\n  FROM planet_osm_line\n  WHERE route = 'ferry'\n) AS ferry_routes",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 7
+      },
+      "advanced": {}
+    },
+    {
+      "name": "aerialways",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "id": "aerialways",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    aerialway\n  FROM planet_osm_line\n  WHERE aerialway IS NOT NULL\n) AS aerialways",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 12
+      },
+      "advanced": {}
+    },
+    {
+      "name": "admin-low-zoom",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    admin_level\n  FROM planet_osm_roads\n  WHERE boundary = 'administrative'\n    AND admin_level IN ('0', '1', '2', '3', '4')\n    AND osm_id < 0\n  ORDER BY admin_level DESC\n) AS admin_low_zoom",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "id": "admin-low-zoom",
+      "properties": {
+        "maxzoom": 10
+      },
+      "advanced": {}
+    },
+    {
+      "name": "admin-mid-zoom",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "id": "admin-mid-zoom",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    admin_level\n  FROM planet_osm_roads\n  WHERE boundary = 'administrative'\n    AND admin_level IN ('0', '1', '2', '3', '4', '5', '6', '7', '8')\n    AND osm_id < 0\n  ORDER BY admin_level DESC\n) AS admin_mid_zoom",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "maxzoom": 12,
+        "minzoom": 11
+      },
+      "advanced": {}
+    },
+    {
+      "name": "admin-high-zoom",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "id": "admin-high-zoom",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way,\n    admin_level\n  FROM planet_osm_roads\n  WHERE boundary = 'administrative'\n    AND admin_level IN ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10')\n    AND osm_id < 0\n  ORDER BY admin_level::integer DESC -- With 10 as a valid value, we need to do a numeric ordering, not a text ordering\n) AS admin_high_zoom",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 13
+      },
+      "advanced": {}
+    },
+    {
+      "name": "power-minorline",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "id": "power-minorline",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way\n  FROM planet_osm_line\n  WHERE power = 'minor_line'\n) AS power_minorline",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 16
+      },
+      "advanced": {}
+    },
+    {
+      "name": "power-line",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "id": "power-line",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way\n  FROM planet_osm_line\n  WHERE power = 'line'\n) AS power_line",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 14
+      },
+      "advanced": {}
+    },
+    {
+      "name": "power-towers",
+      "srs-name": "900913",
+      "geometry": "point",
+      "class": "",
+      "id": "power-towers",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way\n  FROM planet_osm_point\n  WHERE power = 'tower'\n) AS power_towers",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 14
+      },
+      "advanced": {}
+    },
+    {
+      "name": "power-poles",
+      "srs-name": "900913",
+      "geometry": "point",
+      "class": "",
+      "id": "power-poles",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way\n  FROM planet_osm_point\n  WHERE power = 'pole'\n) AS power_poles",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 16
+      },
+      "advanced": {}
+    },
+    {
+      "name": "interpolation",
+      "srs-name": "900913",
+      "geometry": "linestring",
+      "class": "",
+      "id": "interpolation",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "Datasource": {
+        "extent": "-20037508,-20037508,20037508,20037508",
+        "table": "(SELECT\n    way\n  FROM planet_osm_line\n  WHERE \"addr:interpolation\" IS NOT NULL\n) AS interpolation",
+        "geometry_field": "way",
+        "type": "postgis",
+        "key_field": "",
+        "dbname": "gis"
+      },
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "properties": {
+        "minzoom": 17
+      },
+      "advanced": {}
+    }
+  ],
+  "scale": 1,
+  "center": [
+    0,
+    0,
+    4
+  ],
+  "format": "png",
+  "_parts": {
+    "extents": {
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "srs-name": "900913"
+    },
+    "osm2pgsql": {
+      "geometry_field": "way",
+      "type": "postgis",
+      "dbname": "gis",
+      "extent": "-20037508,-20037508,20037508,20037508",
+      "key_field": ""
+    },
+    "extents84": {
+      "srs": "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+      "extent": [
+        -180,
+        -85.05112877980659,
+        180,
+        85.05112877980659
+      ],
+      "srs-name": "WGS84"
+    }
+  },
+  "metatile": 2,
+  "bounds": [
+    -180,
+    -85.05112877980659,
+    180,
+    85.05112877980659
+  ],
+  "name": "OpenStreetMap Carto",
+  "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+  "Stylesheet": [
+    "style.mss",
+    "shapefiles.mss",
+    "landcover.mss",
+    "water.mss",
+    "water-features.mss",
+    "roads.mss",
+    "power.mss",
+    "citywalls.mss",
+    "placenames.mss",
+    "buildings.mss",
+    "stations.mss",
+    "amenity-points.mss",
+    "ferry-routes.mss",
+    "aerialways.mss",
+    "admin.mss",
+    "addressing.mss"
+  ],
+  "minzoom": 0,
+  "maxzoom": 22,
+  "description": "A faithful reimplementation of the standard OpenStreetMap style"
+}
