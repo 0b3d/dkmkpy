@@ -7,14 +7,15 @@ def query_attributes(locations):
     point_list = []
     polygon_list = []
     for location in locations:
-        lon, lat = location[0], location[1]
-        query1 = """ SELECT highway, leisure, tourism, railway, water, tags
+        lat, lon = location[0], location[1]
+        # , leisure, tourism, railway, water, tags
+        query1 = """ SELECT name, highway
         FROM planet_osm_line
         WHERE planet_osm_line.way &&
         ST_Transform(
         ST_MakeEnvelope({}, {}, {}, {}, 
         4326),3857
-        );
+        ) and name <> 'Park Row' and highway <> '';
         """
         query1 = query1.format(lon-size,lat-size,lon+size,lat+size)
         cur.execute(query1)
@@ -22,7 +23,7 @@ def query_attributes(locations):
         line_list.append(res)
         # Query data from points
         
-        query2 = """ SELECT amenity, building, religion, shop, tourism
+        query2 = """ SELECT amenity, building, religion, shop, tourism, tags
         FROM planet_osm_point
         WHERE planet_osm_point.way &&
         ST_Transform(
@@ -36,7 +37,7 @@ def query_attributes(locations):
         point_list.append(res)
 
         # Query data from polygons
-        query3 = """ SELECT amenity, landuse, shop, building, sport
+        query3 = """ SELECT amenity, landuse, shop, building, sport, tags
         FROM planet_osm_polygon
         WHERE planet_osm_polygon.way &&
         ST_Transform(
@@ -51,69 +52,54 @@ def query_attributes(locations):
     return line_list, point_list, polygon_list
 
 # Query the main information
-conn = psycopg2.connect("dbname='gis' user='postgres' host='f9f32644024e'")
+conn = psycopg2.connect("dbname='gis' user='postgres' host='f978bc0bd1f8'")
 cur = conn.cursor()
 
 query = """
-SELECT ST_X((dp).geom), ST_Y((dp).geom), ST_AsText((dp).geom) As wknode, name, highway, junction, tags
+SELECT ST_Y((dp).geom), ST_X((dp).geom), name, highway, junction, sidewalk, lit, lanes, noexit
 FROM(
-    SELECT name, highway, junction, tags, ST_DumpPoints(ST_Transform(way,4326)) AS dp 
+    SELECT ST_DumpPoints(ST_Transform(way,4326)) AS dp, name, highway, junction, tags->'sidewalk' as sidewalk, tags->'lit' as lit, tags->'lanes' as lanes, tags->'noexit' as noexit
     FROM planet_osm_line 
-    WHERE name <> '' and highway <> ''
+    WHERE name = 'Queen's Road' and highway <> ''
     ORDER BY name
     ) As foo;
 
 """
 
 cur.execute(query)
-nodes = cur.fetchall()
+locations = cur.fetchall()
 
-# for i in range(0,len(nodes)):
-#     print(nodes[i][0])
-# print("{} points were found".format(len(nodes)))
+line, point, polygon = query_attributes(locations)
 
-# Query using tags 
-#query = """ SELECT ST_X(ST_Transform(way,4326)), ST_Y(ST_Transform(way,4326)), ST_AsText(ST_Transform(way,4326)) AS pt_lonlattext -- tags 
-#FROM  planet_osm_line
-#WHERE tags @> 'oneway=>yes'::hstore;
-#"""
-# # Query using tags 
-# query = """ SELECT tags 
-# FROM  planet_osm_line
-# WHERE highway='primary';
-# """
+for location in locations:
+    print(location[0:2])
+for entry in line:
+    print(entry)
+    
 
-#cur.execute(query)
-#sushi = cur.fetchall()
-#print(sushi)
-# # Add attributes
-locations = nodes[1000:1100]
-line_attributes, point_attributes, polygon_attributes = query_attributes(locations)
-print("Len line_atrr: ", len(line_attributes))
-#print("Len point_atrr: ", len(point_attributes))
-# #print("Len polygon_atrr: ", len(polygon_attributes))
+# #Now query noexit points
+# #query = """ SELECT ST_X(ST_Transform(way,4326)), ST_Y(ST_Transform(way,4326)) -- tags 
+# #FROM  planet_osm_point
+# #WHERE tags @> 'noexit=>yes'::hstore;
+# #"""
+# #cur.execute(query)
+# #noexit = cur.fetchall()
+# #for entry in noexit:
+# #    print(entry)
 
-for i in range(len(line_attributes)):
-    print(locations[i][1], locations[i][0])
-    print(line_attributes[i])
-    print("\n")
-#     #print(point_attributes[i])
-#     #print(polygon_attributes[i])
-
-
-# query2 = """
+# query_limits = """
 # select min(st_xmin(st_transform(way,4326))), min(st_ymin(st_transform(way,4326))), max(st_xmax(st_transform(way,4326))), max(st_ymax(st_transform(way,4326))) from planet_osm_line where name<>'' and highway<>'';
 # """
-# cur.execute(query2)
+# cur.execute(query_limits)
 # extreme = cur.fetchall()
 
 # print("Minimun , Maximum :")
 # print(extreme)
 
 # #-------Save in a Pickel File -----------------------------
-# file_path = "/map_data/road_nodes.pkl"
-# with open( file_path, 'wb') as f:
-#     pickle.dump(nodes, f)
+# #file_path = "/map_data/locations_data.pkl"
+# #with open( file_path, 'wb') as f:
+# #    pickle.dump(locations, f)
 
 
 
