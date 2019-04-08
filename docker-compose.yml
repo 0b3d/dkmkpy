@@ -6,6 +6,8 @@ services:
       - ./data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=gis
+    ports:
+      - "5432:5432"
   renderer:
     build: ./renderer
     volumes:

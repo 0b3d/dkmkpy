@@ -24,6 +24,6 @@ EOSQL
 done
 
 #import Bristol city
-osm2pgsql --style /openstreetmap-carto/openstreetmap-carto.style -d gis -U postgres -k --slim /Bristol.osm.pbf
+osm2pgsql --style /openstreetmap-carto/openstreetmap-carto.style -d gis -U postgres -k --slim /great-britain-latest.osm.pbf
 
 touch /var/lib/postgresql/data/DB_INITED
