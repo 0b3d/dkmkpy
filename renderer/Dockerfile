@@ -1,10 +1,12 @@
 FROM dpokidov/gopnik
 
-RUN apt-get update && \
-    apt-get install -y git curl unzip node-carto mapnik-utils fontconfig nano && \
+RUN echo "Aqui"
+RUN apt-get update
+RUN apt-get install -y git curl unzip node-carto mapnik-utils fontconfig nano && \
     apt-get install -y software-properties-common && \
     apt-get install -y python3.6 && \
     rm -rf /var/lib/apt/lists/*
+
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
     python get-pip.py && \
     pip install numpy && \

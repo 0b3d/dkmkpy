@@ -48,6 +48,28 @@ class GSV:
         return image
 
     def concatenate_tiles(self, pano_id):
+        def autocrop(image, threshold=0):
+            """Crops any edges below or equal to threshold
+
+            Crops blank image to 1x1.
+
+            Returns cropped image.
+
+            """
+            if len(image.shape) == 3:
+                flatImage = np.max(image, 2)
+            else:
+                flatImage = image
+            assert len(flatImage.shape) == 2
+
+            rows = np.where(np.max(flatImage, 0) > threshold)[0]
+            if rows.size:
+                cols = np.where(np.max(flatImage, 1) > threshold)[0]
+                image = image[cols[0]: cols[-1] + 1, rows[0]: rows[-1] + 1]
+            else:
+                image = image[:1, :1]
+            return image
+
         x_range = [0,1]
         y_range = [0]
         pano = np.zeros((512*len(y_range), 512*len(x_range), 3), dtype= 'uint8')
@@ -56,6 +78,7 @@ class GSV:
                 tile_url = 'http://maps.google.com/cbk?output=tile&zoom=' + str(self.zoom) + '&x=' +str(x)+ '&y=' + str(y) +'&cb_client=maps_sv&fover=2&onerr=3&renderer=spherical&v=4&panoid=' + pano_id
                 img = GSV.url_to_image(self, tile_url)
                 pano[512*y:512*(y+1), 512*x:512*(x+1),...] = img
+        pano = autocrop(pano)
         return pano
 
     def show_images(self, one_or_all):

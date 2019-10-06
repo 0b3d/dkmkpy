@@ -224,7 +224,7 @@ if __name__ == "__main__":
     # Last porcentages of bristol render porcentages = [[0.2,0.3], [0.6,0.8], [0.8,1]] #in %  
     # Just onne tile for location
     num_items = 1 #Total number of images by location (including rotated and shifted)
-    locations_to_process = 5000
+    locations_to_process = 1000
 
     with open('/images/locations_in_tfr.csv', 'w') as csvFile:
         csv_writer = csv.writer(csvFile)

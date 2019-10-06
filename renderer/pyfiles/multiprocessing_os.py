@@ -31,8 +31,51 @@ class RenderThread:
         self.mapfile = mapfile
         self.maxZoom = 1
         self.printLock = printLock
+        self.width = 256
+        self.height = 256
         
+    def renter_tile_with_zoom(self, cpoint, data, item, label, lat, layer, lon, num_items, projec, zoom):
+        # target projection
+        #merc = mapnik.Projection('+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over')
+        merc = projec
+        # WGS lat/long source projection of centre
+        longlat = mapnik.Projection('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
         
+        # make a new Map object for the given mapfile
+        m = mapnik.Map(self.width, self.height)
+        mapfile = "/map_data/styles/bs_" + layer + ".xml"
+        mapnik.load_map(m, mapfile)
+        
+        # ensure the target map projection is mercator
+        m.srs = merc.params()
+        
+        # transform the centre point into the target coord sys
+        centre = mapnik.Coord(cpoint[0], cpoint[1])  
+        transform = mapnik.ProjTransform(longlat, merc)
+        merc_centre = transform.forward(centre)
+        
+        # 360/(2**zoom) degrees = 256 px
+        # so in merc 1px = (20037508.34*2) / (256 * 2**zoom)
+        # hence to find the bounds of our rectangle in projected coordinates + and - half the image width worth of projected coord units
+        
+        dx = ((20037508.34*2*(self.width/2)))/(256*(2 ** (zoom)))
+        minx = merc_centre.x - dx
+        maxx = merc_centre.x + dx
+        
+        # grow the height bbox, as we only accurately set the width bbox
+        m.aspect_fix_mode = mapnik.aspect_fix_mode.ADJUST_BBOX_HEIGHT
+
+        bounds = mapnik.Box2d(minx, merc_centre.y-10, maxx, merc_centre.y+10) # the y bounds will be fixed by mapnik due to ADJUST_BBOX_HEIGHT
+        m.zoom_to_box(bounds)
+
+        # render the map image to a file
+        # mapnik.render_to_file(m, output)
+        #render the map to an image
+        im = mapnik.Image(self.width,self.height)
+        mapnik.render(m, im)
+        img = im.tostring('png256')
+        data[(item, layer)]= img
+
     def rendertile(self,bounds, mapfile, lon, lat, name, projec, tile_uri):
         global ntiles
         z = 1
@@ -167,6 +210,4 @@ if __name__ == "__main__":
     main_box = (-2.714996 , 51.405203 , -2.436218, 51.537367 ) #'extent':'-325784.36424912,5743147.85822298,-253460.12347616,5714795.00655692',
     render_images(main_box,size, step, mapfile, "Bristol", NUM_THREADS)
             
-            
-    
 

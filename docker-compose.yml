@@ -1,7 +1,7 @@
 version: '2'
 services:
   postgis:
-    build: ./postgis
+    image: pgr:version2
     volumes:
       - ./data:/var/lib/postgresql/data
     environment:

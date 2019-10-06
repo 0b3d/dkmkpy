@@ -78,8 +78,8 @@ class RenderThread:
         self.q = q
         self.maxZoom = 1
         self.printLock = printLock
-        self.width = 224
-        self.height = 224
+        self.width = 256
+        self.height = 256
 
     def rendertiles(self, cpoint, data, item, label, lat, layer, lon, num_items, projec, zoom):
         # target projection
