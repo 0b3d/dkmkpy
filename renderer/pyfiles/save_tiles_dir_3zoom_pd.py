@@ -3,15 +3,16 @@ import csv, random as rd
 import tensorflow as tf
 import multiprocessing
 from subprocess import call
+import pandas as pd
 try:
     import mapnik2 as mapnik
 except:
     import mapnik
 
 # Define some parameters
-zoom_levels = [19,20]
-save_dir = '/images/scattered_london'
-num_threads = 6 
+zoom_levels = [19, 20]
+save_dir = '/images/locations'
+num_threads = 8 
 initial_row = 0 # The first row to process
 layers = ['s2v']
 
@@ -95,7 +96,7 @@ class RenderThread:
             self.printLock.release()
             self.q.task_done()
 
-def render_locations(locations, num_threads, save_dir):
+def render_locations(frame, num_threads, save_dir):
     # Open the csv with the location information
     queue = multiprocessing.JoinableQueue(32)
     printLock = multiprocessing.Lock()
@@ -106,11 +107,12 @@ def render_locations(locations, num_threads, save_dir):
         render_thread.start()
         renderers[i] = render_thread
 
-    for i, location in enumerate(locations):
+
+
+    for i in range(len(frame)):
         #lat = float(row['lat'])
         #lon = float(row['lon'])
-        lat = float(location[1])
-        lon = float(location[2])
+        lat, lon = frame.loc[i, 'gsv_lat'], frame.loc[i, 'gsv_lon']
         cpoint = [lon, lat]
 
         #---Generate num_tems images from shifting in the range [0,0.8*size] and rotating
@@ -120,13 +122,12 @@ def render_locations(locations, num_threads, save_dir):
 
             # Read osm_yaw and osm_yaw, if they don't match adjust
             #osm_yaw = float(location['osm_yaw'])
-            gsv_yaw = float(location[3])
+            loc_id, gsv_yaw = frame.loc[i, 'loc_id'], frame.loc[i, 'gsv_yaw']
             #if abs(osm_yaw-gsv_yaw) > 90:
             #    teta = -180 -1 * gsv_yaw
             #else:
             #    teta = -1 * gsv_yaw 
             teta = lon - gsv_yaw
-            loc_id = location[0]
             tile_uri = os.path.join(save_dir, 'z'+str(zoom), str(loc_id)+'.png')
             for layer in layers:
                 new_cpoint = [cpoint[0]+shift_lon, cpoint[1]+shift_lat]
@@ -143,12 +144,18 @@ def render_locations(locations, num_threads, save_dir):
         renderers[i].join()
 
 
-locations = []
-with open('/map_data/locations.csv') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for i, row in enumerate(reader):
-        loc_id, lat, lon, yaw = row['loc_id'], row['gsv_lat'], row['gsv_lon'], row['gsv_yaw']
-        locations.append([loc_id, lat, lon, yaw])
-        #print('Reading {} line \r'.format(i))
-    print("{} lines found".format(len(locations)))
-render_locations(locations, num_threads, save_dir)
+frame = pd.read_csv('/map_data/locations.csv', header=0, skiprows=0, nrows=100000)
+render_locations(frame, num_threads, save_dir)
+
+# locations = []
+# with open('/map_data/locations.csv') as csvfile:
+#     reader = csv.DictReader(csvfile)
+#     for i, row in enumerate(reader):
+#         loc_id, lat, lon, yaw = row['loc_id'], row['gsv_lat'], row['gsv_lon'], row['gsv_yaw']
+#         locations.append([loc_id, lat, lon, yaw])
+#         #print('Reading {} line \r'.format(i))
+#     print("{} lines found".format(len(locations)))
+# render_locations(locations, num_threads, save_dir)
+
+
+
